@@ -11,7 +11,6 @@ import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_DISTILLATION_
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_DISTILLATION_TOWER_ACTIVE_GLOW;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_DISTILLATION_TOWER_GLOW;
 import static gregtech.api.modularui2.GTGuis.createPopUpPanel;
-import static gregtech.api.modularui2.GTGuis.mteTemplatePanelBuilder;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
 import static gregtech.api.util.GTUtility.filterValidMTEs;
@@ -587,7 +586,7 @@ public class MTENanochipAssemblyComplex extends MTEExtendedPowerMultiBlockBase<M
 
     @Override
     public ModularPanel buildUI(PosGuiData data, PanelSyncManager syncManager) {
-        ModularPanel ui  = super.buildUI(data, syncManager);
+        ModularPanel ui = super.buildUI(data, syncManager);
         IPanelHandler popupPanel = syncManager.panel("popup", (m, h) -> createGREGOSPanel(syncManager), true);
 
         return ui.child(new ButtonWidget<>().onMousePressed(mouseButton -> {

@@ -123,7 +123,8 @@ public class AssemblyMatrix extends MTENanochipAssemblyModuleBase<AssemblyMatrix
 
     private int getMachineTier() {
         // Determine tier of machine based on tier of stack of robot arms in the controller.
-        ItemStack stack = this.getControllerSlot();
+        ItemStack stack = this.getInvSlot()
+            .getStackInSlot(0);
         if (stack == null || stack.stackSize != 64) return 0;
         int meta = stack.getItemDamage() - 32000;
         // In the ID list, LV-UEV is a separate range from UIV-MAX

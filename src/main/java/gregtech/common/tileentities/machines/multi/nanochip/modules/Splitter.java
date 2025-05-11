@@ -352,7 +352,7 @@ public class Splitter extends MTENanochipAssemblyModuleBase<Splitter> {
 
     @Override
     public ModularPanel buildUI(PosGuiData data, PanelSyncManager syncManager) {
-        ModularPanel ui  = super.buildUI(data, syncManager);
+        ModularPanel ui = super.buildUI(data, syncManager);
         IPanelHandler popupPanel = syncManager.panel("popup", (m, h) -> createRuleManagerPanel(syncManager), true);
         GenericSyncValue<Map<Integer, ColorRule>> listSyncer = new GenericSyncValue<>(
             () -> colorMap,
