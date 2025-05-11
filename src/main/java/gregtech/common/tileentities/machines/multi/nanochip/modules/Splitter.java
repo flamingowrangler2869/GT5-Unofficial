@@ -2,7 +2,6 @@ package gregtech.common.tileentities.machines.multi.nanochip.modules;
 
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static gregtech.api.modularui2.GTGuis.createPopUpPanel;
-import static gregtech.api.modularui2.GTGuis.mteTemplatePanelBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -352,7 +351,7 @@ public class Splitter extends MTENanochipAssemblyModuleBase<Splitter> {
 
     @Override
     public ModularPanel buildUI(PosGuiData data, PanelSyncManager syncManager) {
-        ModularPanel ui = mteTemplatePanelBuilder(this, data, syncManager).build();
+        ModularPanel ui  = super.buildUI(data, syncManager);
         IPanelHandler popupPanel = syncManager.panel("popup", (m, h) -> createRuleManagerPanel(syncManager), true);
         GenericSyncValue<Map<Integer, ColorRule>> listSyncer = new GenericSyncValue<>(
             () -> colorMap,

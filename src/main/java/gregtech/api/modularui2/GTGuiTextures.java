@@ -322,11 +322,6 @@ public final class GTGuiTextures {
         .name(GTTextureIds.PROGRESSBAR_SIEVERT)
         .build();
 
-    public static final UITexture PROGRESSBAR_SIEVERT = UITexture.builder()
-        .location(MainMod.MOD_ID, "GUI/progressbar/sievert")
-        .fullImage()
-        .name(GTTextureIds.PROGRESSBAR_SIEVERT)
-        .build();
     public static final UITexture PROGRESSBAR_METER_MINT = UITexture.builder()
         .location(GregTech.ID, "gui/progressbar/meter_mint")
         .fullImage()

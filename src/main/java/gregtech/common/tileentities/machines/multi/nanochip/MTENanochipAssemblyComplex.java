@@ -587,7 +587,7 @@ public class MTENanochipAssemblyComplex extends MTEExtendedPowerMultiBlockBase<M
 
     @Override
     public ModularPanel buildUI(PosGuiData data, PanelSyncManager syncManager) {
-        ModularPanel ui = mteTemplatePanelBuilder(this, data, syncManager).build();
+        ModularPanel ui  = super.buildUI(data, syncManager);
         IPanelHandler popupPanel = syncManager.panel("popup", (m, h) -> createGREGOSPanel(syncManager), true);
 
         return ui.child(new ButtonWidget<>().onMousePressed(mouseButton -> {
@@ -595,7 +595,7 @@ public class MTENanochipAssemblyComplex extends MTEExtendedPowerMultiBlockBase<M
             return popupPanel.isPanelOpen();
         })
             .background(GTGuiTextures.BUTTON_STANDARD)
-            .tooltip(tooltip -> tooltip.add("Add Rule"))
+            .tooltip(tooltip -> tooltip.add("Talk to GREGOS"))
             .pos(153, 5)
             .size(18, 18));
     }
