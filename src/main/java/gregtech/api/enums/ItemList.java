@@ -880,6 +880,10 @@ public enum ItemList implements IItemContainer {
     Casing_Advanced_Iridium,
     Casing_Magical,
 
+    Casing_Nanochip_Structural,
+    Casing_Nanochip_Modulation,
+    Casing_Deep_Learning_Computation,
+
     Hull_ULV,
     Hull_LV,
     Hull_MV,

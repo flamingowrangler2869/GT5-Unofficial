@@ -93,7 +93,7 @@ public class MTENanochipAssemblyComplex extends MTEExtendedPowerMultiBlockBase<M
         // Dimensional Bridge
         .addElement('A', ofBlock(GregTechAPI.sBlockCasings1, 14))
         // White casing block
-        .addElement('B', ofBlock(GregTechAPI.sBlockCasings8, 5))
+        .addElement('B', ofBlock(GregTechAPI.sBlockCasings11, 8))
         // Black casing block
         .addElement('C', ofBlock(GregTechAPI.sBlockCasings8, 10))
         .addElement('D', ofFrame(Materials.Naquadah))
@@ -107,7 +107,7 @@ public class MTENanochipAssemblyComplex extends MTEExtendedPowerMultiBlockBase<M
                 .casingIndex(CASING_INDEX_WHITE)
                 .dot(1)
                 // Base casing or assembly module
-                .buildAndChain(GregTechAPI.sBlockCasings8, 5))
+                .buildAndChain(GregTechAPI.sBlockCasings11, 8))
         // Energy Hatch
         .addElement(
             'G',
@@ -124,7 +124,7 @@ public class MTENanochipAssemblyComplex extends MTEExtendedPowerMultiBlockBase<M
                 .atLeastList(Arrays.asList(AssemblyHatchElement.VacuumConveyorHatch, InputBus, OutputBus))
                 .casingIndex(CASING_INDEX_WHITE)
                 .dot(2)
-                .buildAndChain(ofBlock(GregTechAPI.sBlockCasings8, 5)))
+                .buildAndChain(ofBlock(GregTechAPI.sBlockCasings11, 8)))
         // Either a white casing block or an ignored hatch (this hatch is on the module)
         .addElement(
             'I',
@@ -132,7 +132,7 @@ public class MTENanochipAssemblyComplex extends MTEExtendedPowerMultiBlockBase<M
                 .atLeast(AssemblyHatchElement.IgnoredHatch)
                 .casingIndex(CASING_INDEX_WHITE)
                 .dot(3)
-                .buildAndChain(ofBlock(GregTechAPI.sBlockCasings8, 5)))
+                .buildAndChain(ofBlock(GregTechAPI.sBlockCasings11, 8)))
         // Crafting storage block
         .addElement('J', ofBlock(getCraftingStorageBlock(), getCraftingStorageMeta()))
         .build();

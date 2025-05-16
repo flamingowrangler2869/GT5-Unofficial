@@ -29,6 +29,9 @@ public class BlockCasings11 extends BlockCasingsAbstract {
         register(5, ItemList.Casing_Item_Pipe_Quantium, "Quantium Item Pipe Casing");
         register(6, ItemList.Casing_Item_Pipe_Fluxed_Electrum, "Fluxed Electrum Item Pipe Casing");
         register(7, ItemList.Casing_Item_Pipe_Black_Plutonium, "Black Plutonium Item Pipe Casing");
+        register(8, ItemList.Casing_Nanochip_Structural, "Nanochip Complex Structural Casing");
+        register(9, ItemList.Casing_Nanochip_Modulation, "Nanochip Complex Modulation Casing");
+        register(10, ItemList.Casing_Deep_Learning_Computation, "Deep Learning Computation Core");
 
         for (int i = 0; i < 8; i++) {
             GTStructureChannels.ITEM_PIPE_CASING.registerAsIndicator(new ItemStack(this, 1, i), i + 1);
@@ -51,6 +54,9 @@ public class BlockCasings11 extends BlockCasingsAbstract {
             case 5 -> Textures.BlockIcons.MACHINE_CASING_ITEM_PIPE_QUANTIUM.getIcon();
             case 6 -> Textures.BlockIcons.MACHINE_CASING_ITEM_PIPE_FLUXED_ELECTRUM.getIcon();
             case 7 -> Textures.BlockIcons.MACHINE_CASING_ITEM_PIPE_BLACK_PLUTONIUM.getIcon();
+            case 8 -> Textures.BlockIcons.MACHINE_CASING_NANOCHIP_MODULATION.getIcon();
+            case 9 -> Textures.BlockIcons.MACHINE_CASING_NANOCHIP_MODULATION.getIcon();
+            case 10 -> Textures.BlockIcons.MACHINE_CASING_NANOCHIP_MODULATION.getIcon();
             default -> Textures.BlockIcons.MACHINE_CASING_ITEM_PIPE_TIN.getIcon();
         };
     }
