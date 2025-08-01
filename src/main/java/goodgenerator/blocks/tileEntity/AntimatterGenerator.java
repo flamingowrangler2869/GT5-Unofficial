@@ -9,11 +9,8 @@ import static gregtech.api.util.GTStructureUtility.ofFrame;
 import static gregtech.common.misc.WirelessNetworkManager.addEUToGlobalEnergyMap;
 import static gregtech.common.misc.WirelessNetworkManager.strongCheckOrAddUser;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 import net.minecraft.block.Block;
@@ -290,14 +287,14 @@ public class AntimatterGenerator extends MTEExtendedPowerMultiBlockBase
             .addInfo("Annihilating Antimatter like it's 2205!")
             .addSeparator()
             .addInfo(
-                "Generates energy by reacting " + EnumChatFormatting.DARK_AQUA
+                "Generates energy by reacting " + EnumChatFormatting.AQUA
                     + "Semi-Stable Antimatter"
                     + EnumChatFormatting.GRAY
                     + " with "
                     + EnumChatFormatting.GOLD
                     + "Matter")
             .addInfo(
-                "Annihilation uses an equal amount of " + EnumChatFormatting.DARK_AQUA
+                "Annihilation uses an equal amount of " + EnumChatFormatting.AQUA
                     + "Antimatter"
                     + EnumChatFormatting.GRAY
                     + " and "
@@ -309,9 +306,9 @@ public class AntimatterGenerator extends MTEExtendedPowerMultiBlockBase
                     + EnumChatFormatting.GRAY
                     + " every processing cycle")
             .addInfo(EnumChatFormatting.RED + "Voids any invalid fluid!")
-            .addInfo("A cycle lasts 1 tick")
+            .addInfo("A cycle lasts 1 second")
             .addInfo(
-                "Imbalance between " + EnumChatFormatting.DARK_AQUA
+                "Imbalance between " + EnumChatFormatting.AQUA
                     + "Antimatter"
                     + EnumChatFormatting.GRAY
                     + " and "
@@ -321,7 +318,7 @@ public class AntimatterGenerator extends MTEExtendedPowerMultiBlockBase
                     + " will decrease efficiency!"
                     + EnumChatFormatting.GRAY)
             .addInfo(
-                "Efficiency formula: Min(" + EnumChatFormatting.DARK_AQUA
+                "Efficiency formula: Min(" + EnumChatFormatting.AQUA
                     + "Antimatter"
                     + EnumChatFormatting.GRAY
                     + "/"
@@ -333,11 +330,16 @@ public class AntimatterGenerator extends MTEExtendedPowerMultiBlockBase
                     + "Matter"
                     + EnumChatFormatting.GRAY
                     + "/"
-                    + EnumChatFormatting.DARK_AQUA
+                    + EnumChatFormatting.AQUA
                     + "Antimatter"
                     + EnumChatFormatting.GRAY
                     + ")")
             .addInfo("Any excess EU generated will be " + EnumChatFormatting.RED + "voided!" + EnumChatFormatting.GRAY)
+            .addInfo(
+                "Cannot produce more than " + EnumChatFormatting.GREEN
+                    + GTUtility.scientificFormat(Long.MAX_VALUE)
+                    + EnumChatFormatting.GRAY
+                    + " EU per cycle")
             .addSeparator()
             .addInfo(
                 "Energy production formula: " + EnumChatFormatting.GREEN
@@ -346,19 +348,18 @@ public class AntimatterGenerator extends MTEExtendedPowerMultiBlockBase
                     + "A"
                     + EnumChatFormatting.RESET
                     + EnumChatFormatting.GRAY
-                    + "*("
-                    + EnumChatFormatting.DARK_AQUA
+                    + " * ("
+                    + EnumChatFormatting.AQUA
                     + "Antimatter"
                     + EnumChatFormatting.GRAY
-                    + ")^"
+                    + " ^ "
                     + EnumChatFormatting.GOLD
                     + EnumChatFormatting.BOLD
                     + EnumChatFormatting.UNDERLINE
                     + "E"
                     + EnumChatFormatting.RESET
                     + EnumChatFormatting.GRAY
-                    + " EU/Cycle")
-            .addInfo("Cannot produce more than " + GTUtility.formatNumbers(9.2e18) + " EU per cycle")
+                    + ") EU/Cycle")
             .addInfo(
                 "" + EnumChatFormatting.GREEN
                     + EnumChatFormatting.BOLD
@@ -368,9 +369,9 @@ public class AntimatterGenerator extends MTEExtendedPowerMultiBlockBase
                     + EnumChatFormatting.GREEN
                     + "ntimatter energy"
                     + EnumChatFormatting.GRAY
-                    + " base value : "
+                    + " base value: "
                     + EnumChatFormatting.GREEN
-                    + GTUtility.formatNumbers(ANTIMATTER_FUEL_VALUE)
+                    + GTUtility.scientificFormat(ANTIMATTER_FUEL_VALUE)
                     + EnumChatFormatting.GRAY
                     + " EU/L")
             .addInfo(
@@ -535,14 +536,6 @@ public class AntimatterGenerator extends MTEExtendedPowerMultiBlockBase
     protected float avgEffCache;
     protected static final NumberFormatMUI numberFormat = new NumberFormatMUI();
 
-    protected static DecimalFormat standardFormat;
-
-    static {
-        DecimalFormatSymbols dfs = new DecimalFormatSymbols(Locale.US);
-        dfs.setExponentSeparator("e");
-        standardFormat = new DecimalFormat("0.00E0", dfs);
-    }
-
     @Override
     protected void drawTexts(DynamicPositionedColumn screenElements, SlotWidget inventorySlot) {
         super.drawTexts(screenElements, inventorySlot);
@@ -553,7 +546,7 @@ public class AntimatterGenerator extends MTEExtendedPowerMultiBlockBase
                     .setStringSupplier(
                         () -> StatCollector.translateToLocal("gui.AntimatterGenerator.0") + ": "
                             + EnumChatFormatting.BLUE
-                            + standardFormat.format(energyProducedCache)
+                            + GTUtility.scientificFormat(energyProducedCache)
                             + EnumChatFormatting.WHITE
                             + " EU")
                     .setTextAlignment(Alignment.CenterLeft)
