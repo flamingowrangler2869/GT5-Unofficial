@@ -224,7 +224,29 @@ import gregtech.common.tileentities.storage.MTEQuantumChest;
 import gregtech.common.tileentities.storage.MTEQuantumTank;
 import gregtech.common.tileentities.storage.MTESuperChest;
 import gregtech.common.tileentities.storage.MTESuperTank;
+import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.MTETransformerHiAmp;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.misc.MTEAmazonPackager;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.MTEIndustrialArcFurnace;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.MTEIndustrialCentrifuge;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.MTEIndustrialChisel;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.MTEIndustrialCokeOven;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.MTEIndustrialCuttingMachine;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.MTEIndustrialExtruder;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.MTEIndustrialForgeHammer;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.MTEIndustrialMacerator;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.MTEIndustrialMixer;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.MTEIndustrialPlatePress;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.MTEIndustrialSifter;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.MTEIndustrialThermalCentrifuge;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.MTEIndustrialWashPlant;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.MTEIndustrialWireMill;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.MTEndustrialElectrolyzer;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.processing.advanced.MTEAdvImplosionCompressor;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.production.MTEIndustrialFishingPond;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.production.MTEIndustrialRockBreaker;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.production.MTETreeFarm;
+import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.production.algae.MTEAlgaePondBase;
 
 // TODO Some GT MetaTileEntity registrations are done in load/GT_Loader_MetaTileEntities_Recipes.java due to joint
 // registration+recipe methods, they should be split and brought here to register all in preload.
@@ -435,7 +457,7 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
             new MTEOilDrillInfinite(
                 MULTIBLOCK_PUMP_INFINITE_CONTROLLER.ID,
                 "multimachine.oildrillinfinite",
-                "Infinite Oil/Gas/Fluid Drilling Rig").getStackForm(1));
+                "Infinite Oil/Gas/Fluid Drilling Rig|").getStackForm(1));
 
         ItemList.ConcreteBackfiller1.set(
             new MTEConcreteBackfiller1(
@@ -461,7 +483,7 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 .getStackForm(1));
 
         ItemList.PyrolyseOven.set(
-            new MTEPyrolyseOven(PYROLYSE_OVEN_CONTROLLER.ID, "multimachine.pyro", "Pyrolyse Oven").getStackForm(1));
+            new MTEPyrolyseOven(PYROLYSE_OVEN_CONTROLLER.ID, "multimachine.pyro", "Pyrolyse Oven|").getStackForm(1));
         ItemList.OilCracker.set(
             new MTEOilCracker(OIL_CRACKER_CONTROLLER.ID, "multimachine.cracker", "Oil Cracking Unit").getStackForm(1));
 
@@ -492,7 +514,7 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
         ItemList.NanoForge
             .set(new MTENanoForge(NANO_FORGE_CONTROLLER.ID, "multimachine.nanoforge", "Nano Forge").getStackForm(1));
         ItemList.Machine_Multi_DroneCentre
-            .set(new MTEDroneCentre(Drone_Centre.ID, "multimachine_DroneCentre", "Drone Centre").getStackForm(1));
+            .set(new MTEDroneCentre(Drone_Centre.ID, "multimachine_DroneCentre", "Drone Centre|").getStackForm(1));
 
         ItemList.Machine_Multi_IndustrialElectromagneticSeparator.set(
             new MTEIndustrialElectromagneticSeparator(
@@ -569,6 +591,128 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
         ItemList.DecayWarehouse.set(
             new MTEDecayWarehouse(DECAY_WAREHOUSE.ID, "multimachine.decay-warehouse", "Decay Warehouse")
                 .getStackForm(1));
+
+        GregtechItemList.Industrial_ThermalCentrifuge.set(
+            new MTEIndustrialThermalCentrifuge(
+                Industrial_ThermalCentrifuge.ID,
+                "industrialthermalcentrifuge.controller.tier.single",
+                "Large Thermal Refinery|").getStackForm(1L));
+
+        GregtechItemList.Industrial_MacerationStack.set(
+            new MTEIndustrialMacerator(
+                Industrial_MacerationStack.ID,
+                "industrialmacerator.controller.tier.single",
+                "Industrial Maceration Stack|").getStackForm(1L));
+
+        GregtechItemList.Industrial_WireFactory.set(
+            new MTEIndustrialWireMill(
+                Industrial_WireFactory.ID,
+                "industrialwiremill.controller.tier.single",
+                "Industrial Wire Factory|").getStackForm(1L));
+
+        GregtechItemList.Industrial_CuttingFactoryController.set(
+            new MTEIndustrialCuttingMachine(
+                Industrial_CuttingFactoryController.ID,
+                "industrialcuttingmachine.controller.tier.01",
+                "Industrial Cutting Factory|").getStackForm(1L));
+
+        GregtechItemList.Industrial_WashPlant.set(
+            new MTEIndustrialWashPlant(
+                Industrial_WashPlant.ID,
+                "industrialwashplant.controller.tier.single",
+                "Ore Washing Plant|").getStackForm(1L));
+
+        GregtechItemList.Industrial_Sifter.set(
+            new MTEIndustrialSifter(
+                Industrial_Sifter.ID,
+                "industrialsifter.controller.tier.single",
+                "Large Sifter Control Block|").getStackForm(1L));
+
+        GregtechItemList.Industrial_Centrifuge.set(
+            new MTEIndustrialCentrifuge(
+                Industrial_Centrifuge.ID,
+                "industrialcentrifuge.controller.tier.single",
+                "Industrial Centrifuge|").getStackForm(1L));
+
+        GregtechItemList.Industrial_Electrolyzer.set(
+            new MTEndustrialElectrolyzer(
+                Industrial_Electrolyzer.ID,
+                "industrialelectrolyzer.controller.tier.single",
+                "Industrial Electrolyzer|").getStackForm(1L));
+
+        GregtechItemList.Industrial_Mixer.set(
+            new MTEIndustrialMixer(
+                Industrial_Mixer.ID,
+                "industrialmixer.controller.tier.single",
+                "Industrial Mixing Machine|").getStackForm(1L));
+
+        GregtechItemList.Industrial_CokeOven.set(
+            new MTEIndustrialCokeOven(
+                Industrial_CokeOven.ID,
+                "industrialcokeoven.controller.tier.single",
+                "Industrial Coke Oven|").getStackForm(1L));
+
+        GregtechItemList.Industrial_TreeFarm.set(
+            new MTETreeFarm(Industrial_TreeFarm.ID, "treefarm.controller.tier.single", "Tree Growth Simulator|")
+                .getStackForm(1L));
+
+        GregtechItemList.Industrial_Extruder.set(
+            new MTEIndustrialExtruder(
+                Industrial_Extruder.ID,
+                "industrialextruder.controller.tier.single",
+                "Industrial Extrusion Machine|").getStackForm(1L));
+
+        GregtechItemList.Industrial_Arc_Furnace.set(
+            new MTEIndustrialArcFurnace(
+                Industrial_Arc_Furnace.ID,
+                "industrialarcfurnace.controller.tier.single",
+                "High Current Industrial Arc Furnace|").getStackForm(1L));
+
+        GregtechItemList.Industrial_PlatePress.set(
+            new MTEIndustrialPlatePress(
+                Industrial_PlatePress.ID,
+                "industrialbender.controller.tier.single",
+                "Industrial Material Press|").getStackForm(1L));
+
+        GregtechItemList.Industrial_FishingPond.set(
+            new MTEIndustrialFishingPond(
+                Industrial_FishingPond.ID,
+                "industrial.fishpond.controller.tier.single",
+                "Zhuhai - Fishing Port|").getStackForm(1L));
+
+        GregtechItemList.Machine_Adv_ImplosionCompressor.set(
+            new MTEAdvImplosionCompressor(
+                Machine_Adv_ImplosionCompressor.ID,
+                "multimachine.adv.implosioncompressor",
+                "Density^2|").getStackForm(1L));
+
+        GregtechItemList.AlgaeFarm_Controller.set(
+            new MTEAlgaePondBase(AlgaeFarm_Controller.ID, "algaefarm.controller.tier.single", "Algae Farm|")
+                .getStackForm(1L));
+
+        GregtechItemList.Controller_IndustrialAutoChisel.set(
+            new MTEIndustrialChisel(
+                Controller_IndustrialAutoChisel.ID,
+                "multimachine.adv.chisel",
+                "Industrial 3D Copying Machine|").getStackForm(1L));
+
+        GregtechItemList.Controller_IndustrialForgeHammer.set(
+            new MTEIndustrialForgeHammer(
+                Controller_IndustrialForgeHammer.ID,
+                "industrialhammer.controller.tier.single",
+                "Industrial Sledgehammer|").getStackForm(1L));
+
+        GregtechItemList.Amazon_Warehouse_Controller.set(
+            new MTEAmazonPackager(
+                Amazon_Warehouse_Controller.ID,
+                "amazonprime.controller.tier.single",
+                "Amazon Warehousing Depot|").getStackForm(1L));
+
+        GregtechItemList.Controller_IndustrialRockBreaker.set(
+            new MTEIndustrialRockBreaker(
+                Controller_IndustrialRockBreaker.ID,
+                "industrialrockcrusher.controller.tier.single",
+                "Boldarnator").getStackForm(1L));
 
         if (Thaumcraft.isModLoaded()) {
             ItemList.ResearchCompleter.set(
