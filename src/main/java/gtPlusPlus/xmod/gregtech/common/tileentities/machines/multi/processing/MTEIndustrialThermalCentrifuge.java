@@ -11,6 +11,7 @@ import static gregtech.api.enums.HatchElement.Muffler;
 import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.structurelib.alignment.constructable.ISurvivalConstructable;
@@ -21,7 +22,6 @@ import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.GregTechAPI;
-import gregtech.api.casing.Casings;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.TAE;
 import gregtech.api.interfaces.IIconContainer;
@@ -39,8 +39,6 @@ import gtPlusPlus.xmod.gregtech.common.blocks.textures.TexturesGtBlock;
 
 public class MTEIndustrialThermalCentrifuge extends GTPPMultiBlockBase<MTEIndustrialThermalCentrifuge>
     implements ISurvivalConstructable {
-
-    private static final String STRUCTURE_PIECE_LEGACY = "legacy";
 
     private int mCasing;
     private static IStructureDefinition<MTEIndustrialThermalCentrifuge> STRUCTURE_DEFINITION = null;
@@ -73,7 +71,7 @@ public class MTEIndustrialThermalCentrifuge extends GTPPMultiBlockBase<MTEIndust
             .addPollutionAmount(getPollutionPerSecond(null))
             .beginStructureBlock(3, 2, 3, false)
             .addController("Front Center")
-            .addCasingInfoMin("Thermal Processing Casings", 8, false)
+            .addCasingInfoMin("Thermal Processing Casings/Noise Hazard Sign Blocks", 8, false)
             .addInputBus("Any Casing", 1)
             .addOutputBus("Any Casing", 1)
             .addEnergyHatch("Any Casing", 1)
@@ -87,28 +85,17 @@ public class MTEIndustrialThermalCentrifuge extends GTPPMultiBlockBase<MTEIndust
     public IStructureDefinition<MTEIndustrialThermalCentrifuge> getStructureDefinition() {
         if (STRUCTURE_DEFINITION == null) {
             STRUCTURE_DEFINITION = StructureDefinition.<MTEIndustrialThermalCentrifuge>builder()
-                .addShape(
-                    STRUCTURE_PIECE_LEGACY,
-                    transpose(new String[][] { { "C~C", "CCC", "CCC" }, { "CCC", "CCC", "CCC" }, }))
-                .addShape(mName, transpose(new String[][] { { " ~ ", "   ", "AAA" }, { "AAA", "   ", "   " }, }))
+                .addShape(mName, transpose(new String[][] { { "C~C", "CCC", "CCC" }, { "CCC", "CCC", "CCC" }, }))
                 .addElement(
                     'C',
                     ofChain(
                         buildHatchAdder(MTEIndustrialThermalCentrifuge.class)
                             .atLeast(InputBus, OutputBus, Maintenance, Energy, Muffler)
-                            .casingIndex(Casings.ThermalProcessingCasing.textureId)
+                            .casingIndex(getCasingTextureIndex())
                             .dot(1)
                             .build(),
-                        onElementPass(x -> ++x.mCasing, ofBlock(ModBlocks.blockCasings2Misc, 0))))
-                .addElement(
-                    'A',
-                    ofChain(
-                        buildHatchAdder(MTEIndustrialThermalCentrifuge.class)
-                            .atLeast(InputBus, OutputBus, Maintenance, Energy, Muffler)
-                            .casingIndex(1)
-                            .dot(1)
-                            .build(),
-                        onElementPass(x -> ++x.mCasing, ofBlock(GregTechAPI.sBlockCasings3, 1))))
+                        onElementPass(x -> ++x.mCasing, ofBlock(ModBlocks.blockCasings2Misc, 0)),
+                        onElementPass(x -> ++x.mCasing, ofBlock(GregTechAPI.sBlockCasings3, 9))))
                 .build();
         }
         return STRUCTURE_DEFINITION;
@@ -128,10 +115,7 @@ public class MTEIndustrialThermalCentrifuge extends GTPPMultiBlockBase<MTEIndust
     @Override
     public boolean checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
         mCasing = 0;
-        boolean main_piece = checkPiece(mName, 1, 0, 0) && mCasing >= 8;
-        mCasing = 0;
-        boolean legacy_piece = checkPiece(mName, 1, 0, 0) && mCasing >= 0;
-        return main_piece || legacy_piece;
+        return checkPiece(mName, 1, 0, 0) && mCasing >= 8 && checkHatch();
     }
 
     @Override
@@ -180,6 +164,10 @@ public class MTEIndustrialThermalCentrifuge extends GTPPMultiBlockBase<MTEIndust
     @Override
     public int getPollutionPerSecond(final ItemStack aStack) {
         return PollutionConfig.pollutionPerSecondMultiIndustrialThermalCentrifuge;
+    }
+
+    public Block getCasingBlock() {
+        return ModBlocks.blockCasings2Misc;
     }
 
     public byte getCasingMeta() {
