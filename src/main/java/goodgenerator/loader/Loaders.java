@@ -36,6 +36,7 @@ import goodgenerator.blocks.tileEntity.MTELargeFusionComputer5;
 import goodgenerator.blocks.tileEntity.MTEMultiNqGenerator;
 import goodgenerator.blocks.tileEntity.MTENeutronActivator;
 import goodgenerator.blocks.tileEntity.MTEPreciseAssembler;
+import goodgenerator.blocks.tileEntity.MTESupercriticalFluidTurbine;
 import goodgenerator.blocks.tileEntity.MTEUniversalChemicalFuelEngine;
 import goodgenerator.blocks.tileEntity.MTEYottaFluidTank;
 import goodgenerator.blocks.tileEntity.render.TileAntimatter;
@@ -60,7 +61,6 @@ import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.common.misc.GTStructureChannels;
 import gregtech.common.tileentities.generators.MTEDieselGenerator;
-import gregtech.common.tileentities.machines.multi.MTELargeTurbineSCSteamModern;
 import kekztech.common.blocks.BlockTFFTStorageField;
 
 public class Loaders {
@@ -281,23 +281,10 @@ public class Loaders {
     // public static Item Isotope = new NuclearMetaItemGenerator();
 
     public static void GTMetaTileRegister() {
-        // Loaders.MAR = new MTENaquadahGeneratorModern(
-        // MetaTileEntityIDs.MultiNqGenerator.ID,
-        // "NaG",
-        // "Large Naquadah Reactor").getStackForm(1L);
-        // Loaders.FRF = new MTENaquadahRefineryModern(
-        // MetaTileEntityIDs.FuelRefineFactory.ID,
-        // "FRF",
-        // "Naquadah Fuel Refinery").getStackForm(1L);
-
-        Loaders.MAR = new MTEMultiNqGenerator(
-            MetaTileEntityIDs.MultiNqGenerator.ID,
-            "§c§lDEPRECATED§r - Large Naquadah Reactor",
-            "§c§lDEPRECATED§r - Large Naquadah Reactor").getStackForm(1L);
-        Loaders.FRF = new MTEFuelRefineFactory(
-            MetaTileEntityIDs.FuelRefineFactory.ID,
-            "§c§lDEPRECATED§r - Naquadah Fuel Refinery",
-            "§c§lDEPRECATED§r - Naquadah Fuel Refinery").getStackForm(1L);
+        Loaders.MAR = new MTEMultiNqGenerator(MetaTileEntityIDs.MultiNqGenerator.ID, "NaG", "Large Naquadah Reactor")
+            .getStackForm(1L);
+        Loaders.FRF = new MTEFuelRefineFactory(MetaTileEntityIDs.FuelRefineFactory.ID, "FRF", "Naquadah Fuel Refinery")
+            .getStackForm(1L);
         Loaders.UCFE = new MTEUniversalChemicalFuelEngine(
             MetaTileEntityIDs.UniversalChemicalFuelEngine.ID,
             "UniversalChemicalFuelEngine",
@@ -330,7 +317,7 @@ public class Loaders {
             MetaTileEntityIDs.AntimatterHatch.ID,
             "AntimatterHatch",
             "Antimatter Hatch").getStackForm(1L);
-        Loaders.SCTurbine = new MTELargeTurbineSCSteamModern(
+        Loaders.SCTurbine = new MTESupercriticalFluidTurbine(
             MetaTileEntityIDs.SupercriticalFluidTurbine.ID,
             "SupercriticalSteamTurbine",
             "Large Supercritical Steam Turbine").getStackForm(1L);

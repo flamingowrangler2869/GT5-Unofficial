@@ -114,8 +114,11 @@ import static gregtech.api.enums.MetaTileEntityIDs.EnergyDistributor_ZPM;
 import static gregtech.api.enums.MetaTileEntityIDs.GiantOutputHatch;
 import static gregtech.api.enums.MetaTileEntityIDs.HighTemperatureGasCooledReactor;
 import static gregtech.api.enums.MetaTileEntityIDs.HumongousInputHatch;
+import static gregtech.api.enums.MetaTileEntityIDs.MegaBlastFurnace;
 import static gregtech.api.enums.MetaTileEntityIDs.MegaChemicalReactor;
+import static gregtech.api.enums.MetaTileEntityIDs.MegaDistillationTower;
 import static gregtech.api.enums.MetaTileEntityIDs.MegaOilCracker;
+import static gregtech.api.enums.MetaTileEntityIDs.MegaVacuumFreezer;
 import static gregtech.api.enums.MetaTileEntityIDs.ThoriumHighTemperatureReactor;
 import static gregtech.api.enums.MetaTileEntityIDs.VoidMinerI;
 import static gregtech.api.enums.MetaTileEntityIDs.VoidMinerII;
@@ -150,8 +153,11 @@ import bartworks.common.tileentities.multis.MTEDeepEarthHeatingPump;
 import bartworks.common.tileentities.multis.MTEElectricImplosionCompressor;
 import bartworks.common.tileentities.multis.MTEHighTempGasCooledReactor;
 import bartworks.common.tileentities.multis.MTEThoriumHighTempReactor;
+import bartworks.common.tileentities.multis.mega.MTEMegaBlastFurnace;
 import bartworks.common.tileentities.multis.mega.MTEMegaChemicalReactor;
+import bartworks.common.tileentities.multis.mega.MTEMegaDistillTower;
 import bartworks.common.tileentities.multis.mega.MTEMegaOilCracker;
+import bartworks.common.tileentities.multis.mega.MTEMegaVacuumFreezer;
 import bartworks.common.tileentities.tiered.MTEAcidGenerator;
 import bartworks.common.tileentities.tiered.MTECompressedFluidHatch;
 import bartworks.common.tileentities.tiered.MTEDiode;
@@ -472,7 +478,14 @@ public class ItemRegistry {
 
         ItemRegistry.dehp = new MTEDeepEarthHeatingPump(DeepEarthHeatingPump.ID, "DEHP", "Deep Earth Heating Pump")
             .getStackForm(1L);
-
+        ItemRegistry.megaMachines[0] = new MTEMegaBlastFurnace(
+            MegaBlastFurnace.ID,
+            "MegaBlastFurnace",
+            StatCollector.translateToLocal("tile.bw.mbf.name")).getStackForm(1L);
+        ItemRegistry.megaMachines[1] = new MTEMegaVacuumFreezer(
+            MegaVacuumFreezer.ID,
+            "MegaVacuumFreezer",
+            StatCollector.translateToLocal("tile.bw.mvf.name")).getStackForm(1L);
         ItemRegistry.cal = new MTECircuitAssemblyLine(
             CircuitAssemblyLine.ID,
             "CircuitAssemblyLine",
@@ -489,6 +502,10 @@ public class ItemRegistry {
             HumongousInputHatch.ID,
             "HumongousInputHatch",
             "Humongous Input Hatch").getStackForm(1L);
+        ItemRegistry.megaMachines[2] = new MTEMegaDistillTower(
+            MegaDistillationTower.ID,
+            "MegaDistillationTower",
+            "Mega Distillation Tower").getStackForm(1L);
         ItemRegistry.megaMachines[3] = new MTEMegaChemicalReactor(
             MegaChemicalReactor.ID,
             "MegaChemicalReactor",
