@@ -281,10 +281,14 @@ public class Loaders {
     // public static Item Isotope = new NuclearMetaItemGenerator();
 
     public static void GTMetaTileRegister() {
-        Loaders.MAR = new MTEMultiNqGenerator(MetaTileEntityIDs.MultiNqGenerator.ID, "NaG", "Large Naquadah Reactor")
-            .getStackForm(1L);
-        Loaders.FRF = new MTEFuelRefineFactory(MetaTileEntityIDs.FuelRefineFactory.ID, "FRF", "Naquadah Fuel Refinery")
-            .getStackForm(1L);
+        Loaders.MAR = new MTEMultiNqGenerator(
+            MetaTileEntityIDs.MultiNqGenerator.ID,
+            "§c§lDEPRECATED§r - Large Naquadah Reactor",
+            "§c§lDEPRECATED§r - Large Naquadah Reactor").getStackForm(1L);
+        Loaders.FRF = new MTEFuelRefineFactory(
+            MetaTileEntityIDs.FuelRefineFactory.ID,
+            "§c§lDEPRECATED§r - Naquadah Fuel Refinery",
+            "§c§lDEPRECATED§r - Naquadah Fuel Refinery").getStackForm(1L);
         Loaders.UCFE = new MTEUniversalChemicalFuelEngine(
             MetaTileEntityIDs.UniversalChemicalFuelEngine.ID,
             "UniversalChemicalFuelEngine",

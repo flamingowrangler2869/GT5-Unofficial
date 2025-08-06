@@ -44,7 +44,12 @@ import static gregtech.api.recipe.RecipeMaps.thermalCentrifugeRecipes;
 import static gregtech.api.recipe.RecipeMaps.wiremillRecipes;
 
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 
+import bartworks.common.loaders.ItemRegistry;
+import bartworks.common.tileentities.multis.mega.MTEMegaBlastFurnace;
+import bartworks.common.tileentities.multis.mega.MTEMegaDistillTower;
+import bartworks.common.tileentities.multis.mega.MTEMegaVacuumFreezer;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.MachineType;
 import gregtech.api.enums.SoundResource;
@@ -139,6 +144,7 @@ import gregtech.common.tileentities.machines.multi.MTEConcreteBackfiller2;
 import gregtech.common.tileentities.machines.multi.MTEDecayWarehouse;
 import gregtech.common.tileentities.machines.multi.MTEDieselEngine;
 import gregtech.common.tileentities.machines.multi.MTEDistillationTower;
+import gregtech.common.tileentities.machines.multi.MTEDroneCentreModern;
 import gregtech.common.tileentities.machines.multi.MTEElectricBlastFurnace;
 import gregtech.common.tileentities.machines.multi.MTEEntropicProcessor;
 import gregtech.common.tileentities.machines.multi.MTEExtremeDieselEngine;
@@ -183,12 +189,17 @@ import gregtech.common.tileentities.machines.multi.MTELargeTurbineGas;
 import gregtech.common.tileentities.machines.multi.MTELargeTurbineHPSteam;
 import gregtech.common.tileentities.machines.multi.MTELargeTurbinePlasma;
 import gregtech.common.tileentities.machines.multi.MTELargeTurbineSteam;
+import gregtech.common.tileentities.machines.multi.MTEMegaBlastFurnaceModern;
+import gregtech.common.tileentities.machines.multi.MTEMegaDistillationTowerModern;
+import gregtech.common.tileentities.machines.multi.MTEMegaVacuumFreezerModern;
 import gregtech.common.tileentities.machines.multi.MTEMultiAutoclave;
 import gregtech.common.tileentities.machines.multi.MTEMultiCanner;
 import gregtech.common.tileentities.machines.multi.MTEMultiFurnace;
 import gregtech.common.tileentities.machines.multi.MTEMultiLathe;
 import gregtech.common.tileentities.machines.multi.MTEMultiSolidifier;
 import gregtech.common.tileentities.machines.multi.MTENanoForge;
+import gregtech.common.tileentities.machines.multi.MTENaquadahGeneratorModern;
+import gregtech.common.tileentities.machines.multi.MTENaquadahRefineryModern;
 import gregtech.common.tileentities.machines.multi.MTEOilCracker;
 import gregtech.common.tileentities.machines.multi.MTEOilDrill1;
 import gregtech.common.tileentities.machines.multi.MTEOilDrill2;
@@ -214,7 +225,6 @@ import gregtech.common.tileentities.machines.multi.compressor.MTEHIPCompressor;
 import gregtech.common.tileentities.machines.multi.compressor.MTEHeatSensor;
 import gregtech.common.tileentities.machines.multi.compressor.MTEIndustrialCompressor;
 import gregtech.common.tileentities.machines.multi.compressor.MTENeutroniumCompressor;
-import gregtech.common.tileentities.machines.multi.drone.MTEDroneCentre;
 import gregtech.common.tileentities.machines.multi.drone.MTEHatchDroneDownLink;
 import gregtech.common.tileentities.machines.multi.purification.MTEHatchDegasifierControl;
 import gregtech.common.tileentities.machines.multi.purification.MTEHatchLensHousing;
@@ -537,7 +547,7 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
         ItemList.NanoForge
             .set(new MTENanoForge(NANO_FORGE_CONTROLLER.ID, "multimachine.nanoforge", "Nano Forge").getStackForm(1));
         ItemList.Machine_Multi_DroneCentre
-            .set(new MTEDroneCentre(Drone_Centre.ID, "multimachine_DroneCentre", "Drone Centre").getStackForm(1));
+            .set(new MTEDroneCentreModern(Drone_Centre.ID, "multimachine_DroneCentre", "Drone Centre").getStackForm(1));
 
         ItemList.Machine_Multi_IndustrialElectromagneticSeparator.set(
             new MTEIndustrialElectromagneticSeparator(
@@ -749,6 +759,30 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 "§c§lDEPRECATED§r - Pyrolyse Oven",
                 "§c§lDEPRECATED§r - Pyrolyse Oven").getStackForm(1L));
 
+        ItemList.Multi_Mega_Blast_Furnace.set(
+            new MTEMegaBlastFurnace(
+                Mega_Blast_Furnace_Legacy.ID,
+                "§c§lDEPRECATED§r - Mega Electric Blast Furnace",
+                "§c§lDEPRECATED§r - Mega Electric Blast Furnace").getStackForm(1L));
+
+        ItemList.Multi_Mega_Vacuum_Freezer.set(
+            new MTEMegaVacuumFreezer(
+                Mega_Vacuum_Freezer_Legacy.ID,
+                "§c§lDEPRECATED§r - Mega Vacuum Freezer",
+                "§c§lDEPRECATED§r - Mega Vacuum Freezer").getStackForm(1L));
+
+        ItemList.Multi_Mega_Distillation_Tower.set(
+            new MTEMegaDistillTower(
+                Mega_Distillation_Tower_Legacy.ID,
+                "§c§lDEPRECATED§r - Mega Distillation Tower",
+                "§c§lDEPRECATED§r - Mega Distillation Tower").getStackForm(1L));
+
+        ItemList.Machine_Multi_DroneCentre_Legacy.set(
+            new MTEDroneCentreModern(
+                Drone_Centre_Legacy.ID,
+                "§c§lDEPRECATED§r - Drone Centre",
+                "§c§lDEPRECATED§r - Drone Centre").getStackForm(1));
+
         // New GTPP machines
         GregtechItemList.Industrial_ThermalCentrifuge.set(
             new MTEIndustrialThermalCentrifugeModern(
@@ -873,6 +907,28 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 Controller_IndustrialRockBreaker.ID,
                 "industrialrockcrusher.controller.tier.single",
                 "Boldarnator").getStackForm(1L));
+
+        ItemList.Naquadah_Fuel_Refinery
+            .set(new MTENaquadahRefineryModern(Naquadah_Refinery.ID, "FRF", "Naquadah Fuel Refinery").getStackForm(1L));
+
+        ItemList.Naquadah_Generator_Large.set(
+            new MTENaquadahGeneratorModern(Multi_Naquadah_Generator.ID, "NaG", "Large Naquadah Reactor")
+                .getStackForm(1L));
+
+        ItemRegistry.megaMachines[0] = new MTEMegaBlastFurnaceModern(
+            MegaBlastFurnace.ID,
+            "MegaBlastFurnace",
+            StatCollector.translateToLocal("tile.bw.mbf.name")).getStackForm(1L);
+
+        ItemRegistry.megaMachines[1] = new MTEMegaVacuumFreezerModern(
+            MegaVacuumFreezer.ID,
+            "MegaVacuumFreezer",
+            StatCollector.translateToLocal("tile.bw.mvf.name")).getStackForm(1L);
+
+        ItemRegistry.megaMachines[2] = new MTEMegaDistillationTowerModern(
+            MegaDistillationTower.ID,
+            "MegaDistillationTower",
+            "Mega Distillation Tower").getStackForm(1L);
 
         if (Thaumcraft.isModLoaded()) {
             ItemList.ResearchCompleter.set(

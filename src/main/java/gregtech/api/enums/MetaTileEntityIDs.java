@@ -782,6 +782,12 @@ public enum MetaTileEntityIDs {
     Amazon_Warehouse_Controller_Legacy(2822),
     Controller_IndustrialRockBreaker_Legacy(2823),
     MULTIBLOCK_PUMP_INFINITE_CONTROLLER_LEGACY(2824),
+    Mega_Blast_Furnace_Legacy(2825),
+    Mega_Vacuum_Freezer_Legacy(2826),
+    Mega_Distillation_Tower_Legacy(2827),
+
+    Multi_Naquadah_Generator(2850),
+    Naquadah_Refinery(2851),
 
     INDUSTRIAL_LASER_ENGRAVER_CONTROLLER(3004),
     INDUSTRIAL_COMPRESSOR_CONTROLLER(3005),

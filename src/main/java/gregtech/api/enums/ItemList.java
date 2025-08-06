@@ -1578,6 +1578,12 @@ public enum ItemList implements IItemContainer {
     Controller_IndustrialPackager,
     Controller_IndustrialRockBreaker,
     Infinite_Pump,
+    Naquadah_Generator_Large,
+    Naquadah_Fuel_Refinery,
+    Multi_Mega_Blast_Furnace,
+    Multi_Mega_Vacuum_Freezer,
+    Multi_Mega_Distillation_Tower,
+    Machine_Multi_DroneCentre_Legacy,
 
     Machine_IndustrialApiary,
     IndustrialApiary_Upgrade_Frame,
