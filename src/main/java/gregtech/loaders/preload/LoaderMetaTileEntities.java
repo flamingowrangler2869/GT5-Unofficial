@@ -225,6 +225,7 @@ import gregtech.common.tileentities.machines.multi.compressor.MTEHIPCompressor;
 import gregtech.common.tileentities.machines.multi.compressor.MTEHeatSensor;
 import gregtech.common.tileentities.machines.multi.compressor.MTEIndustrialCompressor;
 import gregtech.common.tileentities.machines.multi.compressor.MTENeutroniumCompressor;
+import gregtech.common.tileentities.machines.multi.drone.MTEDroneCentre;
 import gregtech.common.tileentities.machines.multi.drone.MTEHatchDroneDownLink;
 import gregtech.common.tileentities.machines.multi.purification.MTEHatchDegasifierControl;
 import gregtech.common.tileentities.machines.multi.purification.MTEHatchLensHousing;
@@ -778,7 +779,7 @@ public class LoaderMetaTileEntities implements Runnable { // TODO CHECK CIRCUIT 
                 "§c§lDEPRECATED§r - Mega Distillation Tower").getStackForm(1L));
 
         ItemList.Machine_Multi_DroneCentre_Legacy.set(
-            new MTEDroneCentreModern(
+            new MTEDroneCentre(
                 Drone_Centre_Legacy.ID,
                 "§c§lDEPRECATED§r - Drone Centre",
                 "§c§lDEPRECATED§r - Drone Centre").getStackForm(1));
