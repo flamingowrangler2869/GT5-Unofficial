@@ -17,7 +17,7 @@ public class GregtechIndustrialFishPond {
         GregtechItemList.Industrial_FishingPond.set(
             new MTEIndustrialFishingPond(
                 Industrial_FishingPond.ID,
-                "industrial.fishpond.controller.tier.single",
-                "Zhuhai - Fishing Port").getStackForm(1L));
+                "§c§lDEPRECATED§7 - " + "industrial.fishpond.controller.tier.single",
+                "§c§lDEPRECATED§7 - " + "Zhuhai - Fishing Port").getStackForm(1L));
     }
 }

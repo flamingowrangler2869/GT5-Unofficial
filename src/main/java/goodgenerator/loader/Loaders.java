@@ -281,14 +281,18 @@ public class Loaders {
     // public static Item Isotope = new NuclearMetaItemGenerator();
 
     public static void GTMetaTileRegister() {
-        Loaders.MAR = new MTEMultiNqGenerator(MetaTileEntityIDs.MultiNqGenerator.ID, "NaG", "Large Naquadah Reactor")
-            .getStackForm(1L);
-        Loaders.FRF = new MTEFuelRefineFactory(MetaTileEntityIDs.FuelRefineFactory.ID, "FRF", "Naquadah Fuel Refinery")
-            .getStackForm(1L);
+        Loaders.MAR = new MTEMultiNqGenerator(
+            MetaTileEntityIDs.MultiNqGenerator.ID,
+            "§c§lDEPRECATED§7 - " + "NaG",
+            "§c§lDEPRECATED§7 - " + "Large Naquadah Reactor").getStackForm(1L);
+        Loaders.FRF = new MTEFuelRefineFactory(
+            MetaTileEntityIDs.FuelRefineFactory.ID,
+            "§c§lDEPRECATED§7 - " + "FRF",
+            "§c§lDEPRECATED§7 - " + "Naquadah Fuel Refinery").getStackForm(1L);
         Loaders.UCFE = new MTEUniversalChemicalFuelEngine(
             MetaTileEntityIDs.UniversalChemicalFuelEngine.ID,
-            "UniversalChemicalFuelEngine",
-            "Universal Chemical Fuel Engine").getStackForm(1L);
+            "§c§lDEPRECATED§7 - " + "UniversalChemicalFuelEngine",
+            "§c§lDEPRECATED§7 - " + "Universal Chemical Fuel Engine").getStackForm(1L);
         int[] neutronAcceleratorIDs = new int[] { MetaTileEntityIDs.NeutronAcceleratorULV.ID,
             MetaTileEntityIDs.NeutronAcceleratorLV.ID, MetaTileEntityIDs.NeutronAcceleratorMV.ID,
             MetaTileEntityIDs.NeutronAcceleratorHV.ID, MetaTileEntityIDs.NeutronAcceleratorEV.ID,
@@ -319,8 +323,8 @@ public class Loaders {
             "Antimatter Hatch").getStackForm(1L);
         Loaders.SCTurbine = new MTESupercriticalFluidTurbine(
             MetaTileEntityIDs.SupercriticalFluidTurbine.ID,
-            "SupercriticalSteamTurbine",
-            "Large Supercritical Steam Turbine").getStackForm(1L);
+            "§c§lDEPRECATED§7 - " + "SupercriticalSteamTurbine",
+            "§c§lDEPRECATED§7 - " + "Large Supercritical Steam Turbine").getStackForm(1L);
         Loaders.XHE = new MTEExtremeHeatExchanger(
             MetaTileEntityIDs.ExtremeHeatExchanger.ID,
             "ExtremeHeatExchanger",

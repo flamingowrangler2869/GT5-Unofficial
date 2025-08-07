@@ -17,7 +17,7 @@ public class GregtechIndustrialWashPlant {
         GregtechItemList.Industrial_WashPlant.set(
             new MTEIndustrialWashPlant(
                 Industrial_WashPlant.ID,
-                "industrialwashplant.controller.tier.single",
-                "Ore Washing Plant").getStackForm(1L));
+                "§c§lDEPRECATED§7 - " + "industrialwashplant.controller.tier.single",
+                "§c§lDEPRECATED§7 - " + "Ore Washing Plant").getStackForm(1L));
     }
 }

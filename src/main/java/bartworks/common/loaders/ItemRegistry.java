@@ -480,12 +480,12 @@ public class ItemRegistry {
             .getStackForm(1L);
         ItemRegistry.megaMachines[0] = new MTEMegaBlastFurnace(
             MegaBlastFurnace.ID,
-            "MegaBlastFurnace",
-            StatCollector.translateToLocal("tile.bw.mbf.name")).getStackForm(1L);
+            "§c§lDEPRECATED§7 - " + "MegaBlastFurnace",
+            "§c§lDEPRECATED§7 - " + StatCollector.translateToLocal("tile.bw.mbf.name")).getStackForm(1L);
         ItemRegistry.megaMachines[1] = new MTEMegaVacuumFreezer(
             MegaVacuumFreezer.ID,
-            "MegaVacuumFreezer",
-            StatCollector.translateToLocal("tile.bw.mvf.name")).getStackForm(1L);
+            "§c§lDEPRECATED§7 - " + "MegaVacuumFreezer",
+            "§c§lDEPRECATED§7 - " + StatCollector.translateToLocal("tile.bw.mvf.name")).getStackForm(1L);
         ItemRegistry.cal = new MTECircuitAssemblyLine(
             CircuitAssemblyLine.ID,
             "CircuitAssemblyLine",
@@ -504,12 +504,12 @@ public class ItemRegistry {
             "Humongous Input Hatch").getStackForm(1L);
         ItemRegistry.megaMachines[2] = new MTEMegaDistillTower(
             MegaDistillationTower.ID,
-            "MegaDistillationTower",
-            "Mega Distillation Tower").getStackForm(1L);
+            "§c§lDEPRECATED§7 - " + "MegaDistillationTower",
+            "§c§lDEPRECATED§7 - " + "Mega Distillation Tower").getStackForm(1L);
         ItemRegistry.megaMachines[3] = new MTEMegaChemicalReactor(
             MegaChemicalReactor.ID,
-            "MegaChemicalReactor",
-            "Mega Chemical Reactor").getStackForm(1L);
+            "§c§lDEPRECATED§7 - " + "MegaChemicalReactor",
+            "§c§lDEPRECATED§7 - " + "Mega Chemical Reactor").getStackForm(1L);
         ItemRegistry.megaMachines[4] = new MTEMegaOilCracker(MegaOilCracker.ID, "MegaOilCracker", "Mega Oil Cracker")
             .getStackForm(1L);
 

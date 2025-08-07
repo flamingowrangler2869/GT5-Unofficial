@@ -22,7 +22,7 @@ public class GregtechIndustrialChisel {
         GregtechItemList.Controller_IndustrialAutoChisel.set(
             new MTEIndustrialChisel(
                 Controller_IndustrialAutoChisel.ID,
-                "multimachine.adv.chisel",
-                "Industrial 3D Copying Machine").getStackForm(1L));
+                "§c§lDEPRECATED§7 - " + "multimachine.adv.chisel",
+                "§c§lDEPRECATED§7 - " + "Industrial 3D Copying Machine").getStackForm(1L));
     }
 }

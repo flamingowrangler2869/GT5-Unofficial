@@ -38,12 +38,12 @@ public class TileEntities {
         // Multiblock controllers
         sofc1 = new MTESOFuelCellMK1(
             MetaTileEntityIDs.sofc1.ID,
-            "multimachine.fuelcellmk1",
-            "Solid-Oxide Fuel Cell Mk I");
+            "§c§lDEPRECATED§7 - " + "multimachine.fuelcellmk1",
+            "§c§lDEPRECATED§7 - " + "Solid-Oxide Fuel Cell Mk I");
         sofc2 = new MTESOFuelCellMK2(
             MetaTileEntityIDs.sofc2.ID,
-            "multimachine.fuelcellmk2",
-            "Solid-Oxide Fuel Cell Mk II");
+            "§c§lDEPRECATED§7 - " + "multimachine.fuelcellmk2",
+            "§c§lDEPRECATED§7 - " + "Solid-Oxide Fuel Cell Mk II");
         tfft = new MTETankTFFT(MetaTileEntityIDs.tfft.ID, "multimachine.tfft", "T.F.F.T");
         lsc = new MTELapotronicSuperCapacitor(
             MetaTileEntityIDs.lsc.ID,

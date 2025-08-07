@@ -18,7 +18,7 @@ public class GregtechAmazonWarehouse {
         GregtechItemList.Amazon_Warehouse_Controller.set(
             new MTEAmazonPackager(
                 Amazon_Warehouse_Controller.ID,
-                "amazonprime.controller.tier.single",
-                "Amazon Warehousing Depot").getStackForm(1L));
+                "§c§lDEPRECATED§7 - " + "amazonprime.controller.tier.single",
+                "§c§lDEPRECATED§7 - " + "Amazon Warehousing Depot").getStackForm(1L));
     }
 }

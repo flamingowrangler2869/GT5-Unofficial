@@ -18,7 +18,7 @@ public class GregtechIndustrialExtruder {
         GregtechItemList.Industrial_Extruder.set(
             new MTEIndustrialExtruder(
                 Industrial_Extruder.ID,
-                "industrialextruder.controller.tier.single",
-                "Industrial Extrusion Machine").getStackForm(1L));
+                "§c§lDEPRECATED§7 - " + "industrialextruder.controller.tier.single",
+                "§c§lDEPRECATED§7 - " + "Industrial Extrusion Machine").getStackForm(1L));
     }
 }

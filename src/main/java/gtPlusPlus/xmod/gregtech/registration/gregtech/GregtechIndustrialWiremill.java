@@ -11,7 +11,7 @@ public class GregtechIndustrialWiremill {
         GregtechItemList.Industrial_WireFactory.set(
             new MTEIndustrialWireMill(
                 Industrial_WireFactory.ID,
-                "industrialwiremill.controller.tier.single",
-                "Industrial Wire Factory").getStackForm(1L));
+                "§c§lDEPRECATED§7 - " + "industrialwiremill.controller.tier.single",
+                "§c§lDEPRECATED§7 - " + "Industrial Wire Factory").getStackForm(1L));
     }
 }

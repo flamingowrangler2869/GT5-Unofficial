@@ -18,7 +18,7 @@ public class GregtechIndustrialCokeOven {
         GregtechItemList.Industrial_CokeOven.set(
             new MTEIndustrialCokeOven(
                 Industrial_CokeOven.ID,
-                "industrialcokeoven.controller.tier.single",
-                "Industrial Coke Oven").getStackForm(1L));
+                "§c§lDEPRECATED§7 - " + "industrialcokeoven.controller.tier.single",
+                "§c§lDEPRECATED§7 - " + "Industrial Coke Oven").getStackForm(1L));
     }
 }

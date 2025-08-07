@@ -18,7 +18,7 @@ public class GregtechIndustrialElectrolyzer {
         GregtechItemList.Industrial_Electrolyzer.set(
             new MTEndustrialElectrolyzer(
                 Industrial_Electrolyzer.ID,
-                "industrialelectrolyzer.controller.tier.single",
-                "Industrial Electrolyzer").getStackForm(1L));
+                "§c§lDEPRECATED§7 - " + "industrialelectrolyzer.controller.tier.single",
+                "§c§lDEPRECATED§7 - " + "Industrial Electrolyzer").getStackForm(1L));
     }
 }

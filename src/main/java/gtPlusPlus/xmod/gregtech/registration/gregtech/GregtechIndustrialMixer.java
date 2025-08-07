@@ -18,7 +18,7 @@ public class GregtechIndustrialMixer {
         GregtechItemList.Industrial_Mixer.set(
             new MTEIndustrialMixer(
                 Industrial_Mixer.ID,
-                "industrialmixer.controller.tier.single",
-                "Industrial Mixing Machine").getStackForm(1L));
+                "§c§lDEPRECATED§7 - " + "industrialmixer.controller.tier.single",
+                "§c§lDEPRECATED§7 - " + "Industrial Mixing Machine").getStackForm(1L));
     }
 }

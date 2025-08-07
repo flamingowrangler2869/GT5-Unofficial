@@ -11,7 +11,7 @@ public class GregtechIndustrialRockBreaker {
         GregtechItemList.Controller_IndustrialRockBreaker.set(
             new MTEIndustrialRockBreaker(
                 Controller_IndustrialRockBreaker.ID,
-                "industrialrockcrusher.controller.tier.single",
-                "Boldarnator").getStackForm(1L));
+                "§c§lDEPRECATED§7 - " + "industrialrockcrusher.controller.tier.single",
+                "§c§lDEPRECATED§7 - " + "Boldarnator").getStackForm(1L));
     }
 }

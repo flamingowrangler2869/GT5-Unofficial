@@ -29,8 +29,8 @@ public class GregtechFactoryGradeReplacementMultis {
         GregtechItemList.Machine_Adv_ImplosionCompressor.set(
             new MTEAdvImplosionCompressor(
                 Machine_Adv_ImplosionCompressor.ID,
-                "multimachine.adv.implosioncompressor",
-                "Density^2").getStackForm(1L));
+                "§c§lDEPRECATED§7 - " + "multimachine.adv.implosioncompressor",
+                "§c§lDEPRECATED§7 - " + "Density^2").getStackForm(1L));
         GregtechItemList.Industrial_Cryogenic_Freezer.set(
             new MTEIndustrialVacuumFreezer(
                 Industrial_Cryogenic_Freezer.ID,

@@ -18,7 +18,7 @@ public class GregtechIndustrialArcFurnace {
         GregtechItemList.Industrial_Arc_Furnace.set(
             new MTEIndustrialArcFurnace(
                 Industrial_Arc_Furnace.ID,
-                "industrialarcfurnace.controller.tier.single",
-                "High Current Industrial Arc Furnace").getStackForm(1L));
+                "§c§lDEPRECATED§7 - " + "industrialarcfurnace.controller.tier.single",
+                "§c§lDEPRECATED§7 - " + "High Current Industrial Arc Furnace").getStackForm(1L));
     }
 }

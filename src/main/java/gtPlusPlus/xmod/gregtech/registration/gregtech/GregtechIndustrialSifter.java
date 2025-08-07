@@ -17,7 +17,7 @@ public class GregtechIndustrialSifter {
         GregtechItemList.Industrial_Sifter.set(
             new MTEIndustrialSifter(
                 Industrial_Sifter.ID,
-                "industrialsifter.controller.tier.single",
-                "Large Sifter Control Block").getStackForm(1L));
+                "§c§lDEPRECATED§7 - " + "industrialsifter.controller.tier.single",
+                "§c§lDEPRECATED§7 - " + "Large Sifter Control Block").getStackForm(1L));
     }
 }

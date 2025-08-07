@@ -23,8 +23,10 @@ public class GregtechAlgaeContent {
 
         // Algae Pond
         GregtechItemList.AlgaeFarm_Controller.set(
-            new MTEAlgaePondBase(AlgaeFarm_Controller.ID, "algaefarm.controller.tier.single", "Algae Farm")
-                .getStackForm(1L));
+            new MTEAlgaePondBase(
+                AlgaeFarm_Controller.ID,
+                "§c§lDEPRECATED§7 - " + "algaefarm.controller.tier.single",
+                "§c§lDEPRECATED§7 - " + "Algae Farm").getStackForm(1L));
 
         // Chemical Plant
         GregtechItemList.ChemicalPlant_Controller.set(

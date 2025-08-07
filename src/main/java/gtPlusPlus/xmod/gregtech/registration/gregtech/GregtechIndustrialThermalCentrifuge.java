@@ -17,7 +17,7 @@ public class GregtechIndustrialThermalCentrifuge {
         GregtechItemList.Industrial_ThermalCentrifuge.set(
             new MTEIndustrialThermalCentrifuge(
                 Industrial_ThermalCentrifuge.ID,
-                "industrialthermalcentrifuge.controller.tier.single",
-                "Large Thermal Refinery").getStackForm(1L));
+                "§c§lDEPRECATED§7 - " + "industrialthermalcentrifuge.controller.tier.single",
+                "§c§lDEPRECATED§7 - " + "Large Thermal Refinery").getStackForm(1L));
     }
 }

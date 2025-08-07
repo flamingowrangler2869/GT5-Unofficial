@@ -11,7 +11,7 @@ public class GregtechIndustrialMacerator {
         GregtechItemList.Industrial_MacerationStack.set(
             new MTEIndustrialMacerator(
                 Industrial_MacerationStack.ID,
-                "industrialmacerator.controller.tier.single",
-                "Industrial Maceration Stack").getStackForm(1L));
+                "§c§lDEPRECATED§7 - " + "industrialmacerator.controller.tier.single",
+                "§c§lDEPRECATED§7 - " + "Industrial Maceration Stack").getStackForm(1L));
     }
 }

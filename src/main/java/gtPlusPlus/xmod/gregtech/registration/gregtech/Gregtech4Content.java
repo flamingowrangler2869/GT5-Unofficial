@@ -116,8 +116,10 @@ public class Gregtech4Content {
         // Gregtech 4 Thermal Boiler
         Logger.INFO("Gregtech 4 Content | Registering Thermal Boiler.");
         GregtechItemList.GT4_Thermal_Boiler.set(
-            new MTEThermalBoiler(GT4_Thermal_Boiler.ID, "gtplusplus.thermal.boiler", "Thermal Boiler")
-                .getStackForm(1L));
+            new MTEThermalBoiler(
+                GT4_Thermal_Boiler.ID,
+                "§c§lDEPRECATED§7 - " + "gtplusplus.thermal.boiler",
+                "§c§lDEPRECATED§7 - " + "Thermal Boiler").getStackForm(1L));
 
     }
 

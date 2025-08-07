@@ -17,7 +17,7 @@ public class GregtechIndustrialForgeHammer {
         GregtechItemList.Controller_IndustrialForgeHammer.set(
             new MTEIndustrialForgeHammer(
                 Controller_IndustrialForgeHammer.ID,
-                "industrialhammer.controller.tier.single",
-                "Industrial Sledgehammer").getStackForm(1L));
+                "§c§lDEPRECATED§7 - " + "industrialhammer.controller.tier.single",
+                "§c§lDEPRECATED§7 - " + "Industrial Sledgehammer").getStackForm(1L));
     }
 }
