@@ -10,6 +10,7 @@ import static gregtech.api.enums.OrePrefixes.rotor;
 import java.util.Arrays;
 
 import gregtech.api.enums.TCAspects.TC_AspectStack;
+import gregtech.api.util.CustomGlyphs;
 
 public class MaterialsBotania {
 
@@ -205,7 +206,7 @@ public class MaterialsBotania {
         Dreamwood.mChemicalFormula = "Dw";
         BotaniaDragonstone.mChemicalFormula = "Dg";
         Livingrock.mChemicalFormula = "Lv";
-        Terrasteel.mChemicalFormula = "Tr";
+        Terrasteel.mChemicalFormula = CustomGlyphs.EARTH + "Fe\u2085" + CustomGlyphs.SUBSCRIPT0 + "C";
         ElvenElementium.mChemicalFormula = "Ef";
         ManaDiamond.mChemicalFormula = "Ma\u2084C";
 
