@@ -16,7 +16,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -501,22 +500,23 @@ public class TileEntitySpaceElevator extends TTMultiblockBase implements ISurviv
      * @return True if block is valid, else false
      */
     public boolean addCable(Block block, int aBaseCasingIndex, World world, int x, int y, int z) {
-        // Check if the cable block is valid and can see the sky
-        if (block != GregTechAPI.sSpaceElevatorCable || world == null) {
-            return false;
-        }
-        if (!world.canBlockSeeTheSky(x, y + 1, z)) {
-            return false;
-        }
-
-        TileEntity te = world.getTileEntity(x, y, z);
-
-        if (te instanceof TileEntitySpaceElevatorCable) {
-            elevatorCable = (TileEntitySpaceElevatorCable) te;
-            return true;
-        }
-
-        return false;
+        return true;
+        // // Check if the cable block is valid and can see the sky
+        // if (block != GregTechAPI.sSpaceElevatorCable || world == null) {
+        // return false;
+        // }
+        // if (!world.canBlockSeeTheSky(x, y + 1, z)) {
+        // return false;
+        // }
+        //
+        // TileEntity te = world.getTileEntity(x, y, z);
+        //
+        // if (te instanceof TileEntitySpaceElevatorCable) {
+        // elevatorCable = (TileEntitySpaceElevatorCable) te;
+        // return true;
+        // }
+        //
+        // return false;
     }
 
     /**
