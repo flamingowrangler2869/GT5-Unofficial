@@ -73,7 +73,7 @@ public class MTEElectricBlastFurnace extends MTEAbstractMultiFurnace<MTEElectric
                     { "b~b", "bbb", "bbb" } }))
         .addElement(
             'f',
-            buildHatchAdder(MTEElectricBlastFurnace.class).atLeast(OutputHatch)
+            buildHatchAdder(MTEElectricBlastFurnace.class).atLeast(OutputHatch, Maintenance)
                 .casingIndex(CASING_INDEX)
                 .hint(3)
                 .buildAndChain(GregTechAPI.sBlockCasings1, CASING_INDEX))
@@ -143,7 +143,7 @@ public class MTEElectricBlastFurnace extends MTEAbstractMultiFurnace<MTEElectric
             .addCasingInfoRange("Heat Proof Machine Casing", 0, 15, false)
             .addCasingInfoExactly("Heating Coils", 16, true)
             .addEnergyHatch("Any bottom layer casing", 1)
-            .addMaintenanceHatch("Any bottom layer casing", 1)
+            .addMaintenanceHatch("Any Heat Proof Machine Casing", 1)
             .addMufflerHatch("Top middle", 2)
             .addInputBus("Any bottom layer casing", 1)
             .addInputHatch("Any bottom layer casing", 1)
