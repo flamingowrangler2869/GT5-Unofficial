@@ -3355,20 +3355,19 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
 
         for (int i = 1; i < 15; i++) {
             ItemList.WIRELESS_ENERGY_COVERS[i - 1].set(
-                addItem(
+                addItemWithLocalizationKeysAndArgs(
                     Cover_Wireless_Energy_LV.ID + i - 1,
-                    GTUtility.translate("gt.item.wireless_energy_cover.name", GTValues.VN[i]),
-                    String.join(
-                        "\\n",
-                        GTUtility.translate("gt.item.wireless_energy_cover.tooltip"),
-                        GTUtility.translate("gt.tileentity.amperage", EnumChatFormatting.YELLOW + "2"),
+                    "gt.item.wireless_energy_cover.name",
+                    new Object[] { GTValues.VN[i] },
+                    "gt.item.wireless_energy_cover.tooltip",
+                    new Object[] { GTUtility.translate("gt.tileentity.amperage", EnumChatFormatting.YELLOW + "2"),
                         GTUtility.translate(
                             "gt.tileentity.eup_in",
                             EnumChatFormatting.GREEN + formatNumber(GTValues.V[i])
                                 + " ("
                                 + GTUtility.getColoredTierNameFromTier((byte) i)
                                 + EnumChatFormatting.GREEN
-                                + ")")),
+                                + ")") },
                     new TCAspects.TC_AspectStack(TCAspects.VACUOS, 2L)));
         }
         ItemList.Cover_Wireless_Energy_Debug.set(
@@ -3626,32 +3625,32 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
         ItemList.Electromagnet_Iron.set(
             addItem(
                 Electromagnet_Iron.ID,
-                GTUtility.translate("gt.item.electromagnet.iron.name"),
-                MagnetTiers.buildMagnetTooltip(MagnetTiers.Iron),
+                () -> GTUtility.translate("gt.item.electromagnet.iron.name"),
+                () -> MagnetTiers.buildMagnetTooltip(MagnetTiers.Iron),
                 new TCAspects.TC_AspectStack(TCAspects.MAGNETO, 8)));
         ItemList.Electromagnet_Steel.set(
             addItem(
                 Electromagnet_Steel.ID,
-                GTUtility.translate("gt.item.electromagnet.steel.name"),
-                MagnetTiers.buildMagnetTooltip(MagnetTiers.Steel),
+                () -> GTUtility.translate("gt.item.electromagnet.steel.name"),
+                () -> MagnetTiers.buildMagnetTooltip(MagnetTiers.Steel),
                 new TCAspects.TC_AspectStack(TCAspects.MAGNETO, 16)));
         ItemList.Electromagnet_Neodymium.set(
             addItem(
                 Electromagnet_Neodymium.ID,
-                GTUtility.translate("gt.item.electromagnet.neodymium.name"),
-                MagnetTiers.buildMagnetTooltip(MagnetTiers.Neodymium),
+                () -> GTUtility.translate("gt.item.electromagnet.neodymium.name"),
+                () -> MagnetTiers.buildMagnetTooltip(MagnetTiers.Neodymium),
                 new TCAspects.TC_AspectStack(TCAspects.MAGNETO, 24)));
         ItemList.Electromagnet_Samarium.set(
             addItem(
                 Electromagnet_Samarium.ID,
-                GTUtility.translate("gt.item.electromagnet.samarium.name"),
-                MagnetTiers.buildMagnetTooltip(MagnetTiers.Samarium),
+                () -> GTUtility.translate("gt.item.electromagnet.samarium.name"),
+                () -> MagnetTiers.buildMagnetTooltip(MagnetTiers.Samarium),
                 new TCAspects.TC_AspectStack(TCAspects.MAGNETO, 32)));
         ItemList.Electromagnet_Tengam.set(
             addItem(
                 Electromagnet_Tengam.ID,
-                GTUtility.translate("gt.item.electromagnet.tengam.name"),
-                MagnetTiers.buildMagnetTooltip(MagnetTiers.Tengam),
+                () -> GTUtility.translate("gt.item.electromagnet.tengam.name"),
+                () -> MagnetTiers.buildMagnetTooltip(MagnetTiers.Tengam),
                 new TCAspects.TC_AspectStack(TCAspects.MAGNETO, 40)));
 
         ItemList.Black_Hole_Opener.set(
@@ -3893,7 +3892,7 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
     public boolean onEntityItemUpdate(EntityItem aItemEntity) {
         int aDamage = aItemEntity.getEntityItem()
             .getItemDamage();
-        if ((aDamage < 32000) && (aDamage >= 0) && (!aItemEntity.worldObj.isRemote)) {
+        if (Materials.isMaterialItem(aDamage) && (!aItemEntity.worldObj.isRemote)) {
             Materials aMaterial = GregTechAPI.sGeneratedMaterials[(aDamage % 1000)];
             if ((aMaterial != null) && (aMaterial != Materials.Empty) && (aMaterial != Materials._NULL)) {
                 int tX = MathHelper.floor_double(aItemEntity.posX);
@@ -3952,7 +3951,7 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
         if (blockClicked == Blocks.cauldron && metadata > 0) {
             final int damage = oldItemStack.getItemDamage();
 
-            if ((damage < 32000) && (damage >= 0)) {
+            if (Materials.isMaterialItem(damage)) {
                 final Materials oldMaterial = GregTechAPI.sGeneratedMaterials[(damage % 1000)];
                 final OrePrefixes oldPrefix = this.mGeneratedPrefixList[(damage / 1000)];
                 final ItemStack newItemStack = getCauldronWashingResult(oldPrefix, oldMaterial, oldItemStack.stackSize);
@@ -3976,7 +3975,7 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
      * @param stackSize   The stack size to be returned
      * @return the new ItemStack after washing, or null if the material/prefix was invalid
      */
-    static ItemStack getCauldronWashingResult(final OrePrefixes oldPrefix, final Materials oldMaterial,
+    public static ItemStack getCauldronWashingResult(final OrePrefixes oldPrefix, final Materials oldMaterial,
         final int stackSize) {
         if ((oldMaterial != null) && (oldMaterial != Materials.Empty) && (oldMaterial != Materials._NULL)) {
             switch (oldPrefix.getName()) {
@@ -4017,12 +4016,15 @@ public class MetaGeneratedItem01 extends MetaGeneratedItemX32 implements IItemFi
     protected void addAdditionalToolTips(List<String> aList, ItemStack aStack, EntityPlayer aPlayer) {
         super.addAdditionalToolTips(aList, aStack, aPlayer);
         int aDamage = aStack.getItemDamage();
-        if ((aDamage < 32000) && (aDamage >= 0)) {
+        if (Materials.isMaterialItem(aDamage)) {
             Materials aMaterial = GregTechAPI.sGeneratedMaterials[(aDamage % 1000)];
             if ((aMaterial != null) && (aMaterial != Materials.Empty) && (aMaterial != Materials._NULL)) {
                 OrePrefixes aPrefix = this.mGeneratedPrefixList[(aDamage / 1000)];
                 if ((aPrefix == OrePrefixes.dustImpure) || (aPrefix == OrePrefixes.dustPure)) {
                     aList.add(GTUtility.translate("GT5U.tooltip.purify.1"));
+                }
+                if (aPrefix == OrePrefixes.dust && aMaterial == Materials.Wheat) {
+                    aList.add(GTUtility.translate("GT5U.tooltip.flour.cauldron"));
                 }
             }
         }

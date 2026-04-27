@@ -22,9 +22,9 @@ import gregtech.api.metatileentity.implementations.MTEHatchInputBus;
 import gregtech.api.util.GTUtility;
 import gregtech.common.gui.modularui.hatch.base.MTETurbineHousingGui;
 import gregtech.common.tileentities.machines.multi.MTELargeTurbine;
-import gtPlusPlus.api.objects.Logger;
-import gtPlusPlus.core.lib.GTPPCore;
+import gtPlusPlus.core.util.Utils;
 
+@IMetaTileEntity.SkipGenerateDescription
 public class MTEHatchTurbineProvider extends MTEHatchInputBus {
 
     public MTEHatchTurbineProvider(int aID, String aName, String aNameRegional, int aTier) {
@@ -47,11 +47,7 @@ public class MTEHatchTurbineProvider extends MTEHatchInputBus {
 
     @Override
     public String[] getDescription() {
-        return new String[] { "An automation port for Large Turbines",
-            "Will attempt once per 1200 ticks to fill the turbine slot of it's parent turbine",
-            "You may adjust this with a screwdriver", "Hold shift to adjust in finer amounts",
-            "Hold control to adjust direction", "Left Click with Screwdriver to reset",
-            "This module assumes the entire turbine is in the same Chunk", GTPPCore.GT_Tooltip.get() };
+        return Utils.splitLocalizedWithAlkalus("gt.blockmachines.input_bus_turbine.desc");
     }
 
     private MTELargeTurbine mParent = null;
@@ -66,7 +62,6 @@ public class MTEHatchTurbineProvider extends MTEHatchInputBus {
     }
 
     private void tryFindParentTurbine() {
-        Logger.INFO("This turbine housing has no parent, searching world.");
         IGregTechTileEntity T = this.getBaseMetaTileEntity();
         World W = T.getWorld();
         Chunk C = W.getChunkFromBlockCoords(T.getXCoord(), T.getZCoord());
@@ -80,7 +75,6 @@ public class MTEHatchTurbineProvider extends MTEHatchInputBus {
                     for (MTEHatchInputBus ee : aTurb.mInputBusses) {
                         if (ee.equals(this)) {
                             mParent = aTurb;
-                            Logger.INFO("Found a Parent to attach to this housing.");
                             return;
                         }
                     }

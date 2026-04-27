@@ -116,6 +116,7 @@ import forestry.apiculture.blocks.BlockApicultureType;
 import forestry.apiculture.genetics.Bee;
 import forestry.plugins.PluginApiculture;
 import gregtech.api.GregTechAPI;
+import gregtech.api.enums.GTAuthors;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.Textures;
@@ -405,7 +406,7 @@ public class MTEMegaIndustrialApiary extends KubaTechGTMultiBlockBase<MTEMegaInd
             .addInfo("  - Uses 1 amp " + voltageTooltipFormatted(5))
             .addInfo("  - Can overclock")
             .beginStructureBlock(15, 17, 15, false)
-            .addController("Front Bottom Center")
+            .addController("Front center")
             .addCasingInfoMin("Bronze Plated Bricks", 190, false)
             .addCasingInfoExactly("Any Tiered Glass", 121, false)
             .addStructureInfo("The glass tier limits the Energy Input tier")
@@ -418,7 +419,7 @@ public class MTEMegaIndustrialApiary extends KubaTechGTMultiBlockBase<MTEMegaInd
             .addOutputBus("Any casing", 1)
             .addEnergyHatch("Any casing", 1)
             .addMaintenanceHatch("Any casing", 1)
-            .toolTipFinisher(GTValues.AuthorKuba, "Runakai");
+            .toolTipFinisher(GTAuthors.AuthorKuba, "Runakai");
         return tt;
     }
 
@@ -1351,5 +1352,10 @@ public class MTEMegaIndustrialApiary extends KubaTechGTMultiBlockBase<MTEMegaInd
     @Override
     protected SoundResource getActivitySoundLoop() {
         return SoundResource.GT_MACHINES_MEGA_INDUSTRIAL_APIARY_LOOP;
+    }
+
+    @Override
+    public boolean supportsSingleRecipeLocking() {
+        return false;
     }
 }

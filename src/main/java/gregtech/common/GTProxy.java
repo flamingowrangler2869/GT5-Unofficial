@@ -611,6 +611,8 @@ public class GTProxy implements IFuelHandler {
     public boolean gt6Pipe = true;
     public boolean gt6Cable = true;
     public boolean ic2EnergySourceCompat = true;
+    public boolean cableMultiConnectEnabled = true;
+    public int cableMultiConnectLimit = 10000;
     public boolean costlyCableConnection = false;
     public boolean crashOnNullRecipeInput = false;
 
@@ -1075,12 +1077,6 @@ public class GTProxy implements IFuelHandler {
         GTLanguageManager.writePlaceholderStrings();
     }
 
-    /**
-     * @deprecated use {@link gregtech.api.util.GTModHandler.RecipeBits#BITS_STD}
-     */
-    @Deprecated
-    public static long tBits = GTModHandler.RecipeBits.BITS_STD;
-
     public void onPostInitialization(FMLPostInitializationEvent event) {
         GTLog.out.println("GTMod: Beginning PostLoad-Phase.");
         GregTechAPI.sPostloadStarted = true;
@@ -1115,60 +1111,60 @@ public class GTProxy implements IFuelHandler {
                 if (!aMaterial.contains(SubTag.NO_ORE_PROCESSING)) {
                     GTModHandler.addCraftingRecipe(
                         GTOreDictUnificator.get(OrePrefixes.dust, aMaterial.mMacerateInto, 1L),
-                        tBits,
+                        GTModHandler.RecipeBits.BITS_STD,
                         new Object[] { "h", "X", 'X', OrePrefixes.crushedCentrifuged.get(aMaterial) });
                     GTModHandler.addCraftingRecipe(
                         GTOreDictUnificator.get(OrePrefixes.dust, aMaterial.mMacerateInto, 1L),
-                        tBits,
+                        GTModHandler.RecipeBits.BITS_STD,
                         new Object[] { "h", "X", 'X', OrePrefixes.crystalline.get(aMaterial) });
                     GTModHandler.addCraftingRecipe(
                         GTOreDictUnificator.get(OrePrefixes.dust, aMaterial.mMacerateInto, 1L),
-                        tBits,
+                        GTModHandler.RecipeBits.BITS_STD,
                         new Object[] { "h", "X", 'X', OrePrefixes.crystal.get(aMaterial) });
                     GTModHandler.addCraftingRecipe(
                         GTOreDictUnificator.get(OrePrefixes.dustPure, aMaterial.mMacerateInto, 1L),
-                        tBits,
+                        GTModHandler.RecipeBits.BITS_STD,
                         new Object[] { "h", "X", 'X', OrePrefixes.crushedPurified.get(aMaterial) });
                     GTModHandler.addCraftingRecipe(
                         GTOreDictUnificator.get(OrePrefixes.dustPure, aMaterial.mMacerateInto, 1L),
-                        tBits,
+                        GTModHandler.RecipeBits.BITS_STD,
                         new Object[] { "h", "X", 'X', OrePrefixes.cleanGravel.get(aMaterial) });
                     GTModHandler.addCraftingRecipe(
                         GTOreDictUnificator.get(OrePrefixes.dustPure, aMaterial.mMacerateInto, 1L),
-                        tBits,
+                        GTModHandler.RecipeBits.BITS_STD,
                         new Object[] { "h", "X", 'X', OrePrefixes.reduced.get(aMaterial) });
                     GTModHandler.addCraftingRecipe(
                         GTOreDictUnificator.get(OrePrefixes.dustImpure, aMaterial.mMacerateInto, 1L),
-                        tBits,
+                        GTModHandler.RecipeBits.BITS_STD,
                         new Object[] { "h", "X", 'X', OrePrefixes.clump.get(aMaterial) });
                     GTModHandler.addCraftingRecipe(
                         GTOreDictUnificator.get(OrePrefixes.dustImpure, aMaterial.mMacerateInto, 1L),
-                        tBits,
+                        GTModHandler.RecipeBits.BITS_STD,
                         new Object[] { "h", "X", 'X', OrePrefixes.shard.get(aMaterial) });
                     GTModHandler.addCraftingRecipe(
                         GTOreDictUnificator.get(OrePrefixes.dustImpure, aMaterial.mMacerateInto, 1L),
-                        tBits,
+                        GTModHandler.RecipeBits.BITS_STD,
                         new Object[] { "h", "X", 'X', OrePrefixes.crushed.get(aMaterial) });
                     GTModHandler.addCraftingRecipe(
                         GTOreDictUnificator.get(OrePrefixes.dustImpure, aMaterial.mMacerateInto, 1L),
-                        tBits,
+                        GTModHandler.RecipeBits.BITS_STD,
                         new Object[] { "h", "X", 'X', OrePrefixes.dirtyGravel.get(aMaterial) });
                 }
                 GTModHandler.addCraftingRecipe(
                     GTOreDictUnificator.get(OrePrefixes.dustSmall, aMaterial, 4L),
-                    tBits,
+                    GTModHandler.RecipeBits.BITS_STD,
                     new Object[] { " X ", "   ", "   ", 'X', OrePrefixes.dust.get(aMaterial) });
                 GTModHandler.addCraftingRecipe(
                     GTOreDictUnificator.get(OrePrefixes.dustTiny, aMaterial, 9L),
-                    tBits,
+                    GTModHandler.RecipeBits.BITS_STD,
                     new Object[] { "X  ", "   ", "   ", 'X', OrePrefixes.dust.get(aMaterial) });
                 GTModHandler.addCraftingRecipe(
                     GTOreDictUnificator.get(OrePrefixes.dust, aMaterial, 1L),
-                    tBits,
+                    GTModHandler.RecipeBits.BITS_STD,
                     new Object[] { "XX", "XX", 'X', OrePrefixes.dustSmall.get(aMaterial) });
                 GTModHandler.addCraftingRecipe(
                     GTOreDictUnificator.get(OrePrefixes.dust, aMaterial, 1L),
-                    tBits,
+                    GTModHandler.RecipeBits.BITS_STD,
                     new Object[] { "XXX", "XXX", "XXX", 'X', OrePrefixes.dustTiny.get(aMaterial) });
             }
         }
@@ -1280,6 +1276,8 @@ public class GTProxy implements IFuelHandler {
         GTCapesLoader.clearSelectedCapes();
         PowerGogglesEventHandler.getInstance()
             .onServerStopped(event);
+        GTChunkManager.instance.onServerStopped();
+        dimensionWisePollution.clear();
     }
 
     /**
@@ -2203,12 +2201,13 @@ public class GTProxy implements IFuelHandler {
             : "autogenerated";
 
         return GTFluidFactory.builder(aMaterial.mName.toLowerCase(Locale.ENGLISH))
-            .withLocalizedName(aMaterial.mDefaultLocalName)
+            .withDefaultLocalName(aMaterial.mDefaultLocalName)
             .withTextureName(fluidTexture)
             .withColorRGBA(aMaterial.mRGBa)
             .withStateAndTemperature(LIQUID, aMaterial.getLiquidTemperature())
             .buildAndRegister()
             .configureMaterials(aMaterial)
+            .addLocalizedName(aMaterial)
             .registerBContainers(GTOreDictUnificator.get(OrePrefixes.cell, aMaterial, 1L), ItemList.Cell_Empty.get(1L))
             .asFluid();
     }
@@ -2221,12 +2220,13 @@ public class GTProxy implements IFuelHandler {
             : "autogenerated";
 
         return GTFluidFactory.builder(aMaterial.mName.toLowerCase(Locale.ENGLISH))
-            .withLocalizedName(aMaterial.mDefaultLocalName)
+            .withDefaultLocalName(aMaterial.mDefaultLocalName)
             .withTextureName(fluidTexture)
             .withColorRGBA(aMaterial.mRGBa)
             .withStateAndTemperature(GAS, aMaterial.getGasTemperature())
             .buildAndRegister()
             .configureMaterials(aMaterial)
+            .addLocalizedName(aMaterial)
             .registerBContainers(GTOreDictUnificator.get(OrePrefixes.cell, aMaterial, 1L), ItemList.Cell_Empty.get(1L))
             .asFluid();
     }
@@ -2240,12 +2240,13 @@ public class GTProxy implements IFuelHandler {
             : "plasma.autogenerated";
 
         return GTFluidFactory.builder("plasma." + aMaterial.mName.toLowerCase(Locale.ENGLISH))
-            .withLocalizedName(aMaterial.mDefaultLocalName + " Plasma")
+            .withDefaultLocalName(aMaterial.mDefaultLocalName + " Plasma")
             .withTextureName(fluidTexture)
             .withColorRGBA(aMaterial.mMoltenRGBa)
             .withStateAndTemperature(PLASMA, 10000)
             .buildAndRegister()
             .configureMaterials(aMaterial)
+            .addLocalizedName(aMaterial)
             .registerContainers(
                 GTOreDictUnificator.get(OrePrefixes.cellPlasma, aMaterial, 1L),
                 ItemList.Cell_Empty.get(1L),
@@ -2262,12 +2263,13 @@ public class GTProxy implements IFuelHandler {
             : "molten.autogenerated";
 
         return GTFluidFactory.builder("molten." + aMaterial.mName.toLowerCase(Locale.ENGLISH))
-            .withLocalizedName("Molten " + aMaterial.mDefaultLocalName)
+            .withDefaultLocalName("Molten " + aMaterial.mDefaultLocalName)
             .withTextureName(fluidTexture)
             .withColorRGBA(aMaterial.mMoltenRGBa)
             .withStateAndTemperature(MOLTEN, aMaterial.mMeltingPoint < 0 ? 1000 : aMaterial.mMeltingPoint)
             .buildAndRegister()
             .configureMaterials(aMaterial)
+            .addLocalizedName(aMaterial)
             .registerContainers(
                 GTOreDictUnificator.get(OrePrefixes.cellMolten, aMaterial, 1L),
                 ItemList.Cell_Empty.get(1L),
@@ -2291,10 +2293,11 @@ public class GTProxy implements IFuelHandler {
         for (int i = 0; i < 3; i++) {
             crackedFluids[i] = GTFluidFactory.builder(namePrefixes[i] + aMaterial.mName.toLowerCase(Locale.ENGLISH))
                 .withIconsFrom(uncrackedFluid)
-                .withLocalizedName(orePrefixes[i].getMaterialPrefix() + aMaterial.mDefaultLocalName)
+                .withDefaultLocalName(orePrefixes[i].getMaterialPrefix() + aMaterial.mDefaultLocalName)
                 .withColorRGBA(aMaterial.mRGBa)
                 .withStateAndTemperature(GAS, 775)
                 .buildAndRegister()
+                .addLocalizedName(aMaterial)
                 .registerBContainers(
                     GTOreDictUnificator.get(orePrefixes[i], aMaterial, 1L),
                     ItemList.Cell_Empty.get(1L))
@@ -2354,10 +2357,11 @@ public class GTProxy implements IFuelHandler {
         for (int i = 0; i < 3; i++) {
             crackedFluids[i] = GTFluidFactory.builder(namePrefixes[i] + aMaterial.mName.toLowerCase(Locale.ENGLISH))
                 .withIconsFrom(uncrackedFluid)
-                .withLocalizedName(orePrefixes[i].getMaterialPrefix() + aMaterial.mDefaultLocalName)
+                .withDefaultLocalName(orePrefixes[i].getMaterialPrefix() + aMaterial.mDefaultLocalName)
                 .withColorRGBA(aMaterial.mRGBa)
                 .withStateAndTemperature(GAS, 775)
                 .buildAndRegister()
+                .addLocalizedName(aMaterial)
                 .registerBContainers(
                     GTOreDictUnificator.get(orePrefixes[i], aMaterial, 1L),
                     ItemList.Cell_Empty.get(1L))
