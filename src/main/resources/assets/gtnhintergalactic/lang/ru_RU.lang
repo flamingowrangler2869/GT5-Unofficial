@@ -117,6 +117,9 @@ item.NtNanofibers.name=Нейтрониевые нановолокна
 item.UHTResistantMesh.name=Сетка устойчивая к ультравысоким температурам
 item.TaHfNanoparticles.name=Наночастицы тантал-гафниевого карбида
 item.NtNanoparticles.name=Наночастицы из нейтрония
+item.droneCase.name=Короностойкий корпус дрона
+item.microcontroller.name=Магнитно-экранированный фемтоконтроллер
+item.fuelPellet.name=Сверхто́нкая TrNq+ радиоизомерных пеллеты
 
 # Blocks
 gt.blockcasingsSE.name=Часть космического лифта
