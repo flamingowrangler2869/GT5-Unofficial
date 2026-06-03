@@ -15,6 +15,7 @@ import java.util.Locale;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.oredict.OreDictionary;
 
 import com.cleanroommc.modularui.factory.PosGuiData;
@@ -39,7 +40,7 @@ import gregtech.api.render.TextureFactory;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.WorldSpawnedEventBuilder.ParticleEventBuilder;
-import gregtech.common.gui.modularui.singleblock.base.MTEBasicMachineWithRecipeBaseGui;
+import gregtech.common.gui.modularui.singleblock.base.MTEBasicMachineBaseGui;
 
 /**
  * NEVER INCLUDE THIS FILE IN YOUR MOD!!!
@@ -50,19 +51,23 @@ import gregtech.common.gui.modularui.singleblock.base.MTEBasicMachineWithRecipeB
 @IMetaTileEntity.SkipGenerateDescription
 public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
 
-    private final RecipeMap<?> mRecipes;
-    private final int mTankCapacity;
-    private final SpecialEffects mSpecialEffect;
-    private final SoundResource mSoundResource;
-    private FallbackableUITexture progressBarTexture;
-    private int recipeCatalystPriority;
+    protected final RecipeMap<?> mRecipes;
+    protected final int mTankCapacity;
+    protected final boolean hasInputFluidSlot;
+    protected final boolean hasOutputFluidSlot;
+    protected final SpecialEffects mSpecialEffect;
+    protected final SoundResource mSoundResource;
+    protected FallbackableUITexture progressBarTexture;
+    protected int recipeCatalystPriority;
 
     /**
-     * Registers machine with multi-line descriptions, specific tank capacity, and sound specified by SoundResource.
+     * Registers machine with multi-line descriptions, specific tank capacity, texture set, and sound specified by
+     * SoundResource.
      */
     public MTEBasicMachineWithRecipe(int aID, String aName, String aNameRegional, int aTier, String[] aDescription,
-        RecipeMap<?> aRecipes, int aInputSlots, int aOutputSlots, int aTankCapacity, SoundResource aSound,
-        SpecialEffects aSpecialEffect, String aOverlays, Object[] aRecipe) {
+        RecipeMap<?> aRecipes, int aInputSlots, int aOutputSlots, boolean hasInputFluidSlot, boolean hasOutputFluidSlot,
+        int aTankCapacity, SoundResource aSound, SpecialEffects aSpecialEffect, ITexture[] aOverlays,
+        Object[] aRecipe) {
         super(
             aID,
             aName,
@@ -72,87 +77,10 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
             aDescription,
             aInputSlots,
             aOutputSlots,
-            TextureFactory.of(
-                TextureFactory.of(
-                    Textures.BlockIcons.customOptional(
-                        "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_SIDE_ACTIVE")),
-                TextureFactory.builder()
-                    .addIcon(
-                        (Textures.BlockIcons.customOptional(
-                            "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_SIDE_ACTIVE_GLOW")))
-                    .glow()
-                    .build()),
-            TextureFactory.of(
-                TextureFactory.of(
-                    Textures.BlockIcons
-                        .customOptional("basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_SIDE")),
-                TextureFactory.builder()
-                    .addIcon(
-                        (Textures.BlockIcons.customOptional(
-                            "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_SIDE_GLOW")))
-                    .glow()
-                    .build()),
-            TextureFactory.of(
-                TextureFactory.of(
-                    Textures.BlockIcons.customOptional(
-                        "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_FRONT_ACTIVE")),
-                TextureFactory.builder()
-                    .addIcon(
-                        (Textures.BlockIcons.customOptional(
-                            "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_FRONT_ACTIVE_GLOW")))
-                    .glow()
-                    .build()),
-            TextureFactory.of(
-                TextureFactory.of(
-                    Textures.BlockIcons
-                        .customOptional("basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_FRONT")),
-                TextureFactory.builder()
-                    .addIcon(
-                        (Textures.BlockIcons.customOptional(
-                            "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_FRONT_GLOW")))
-                    .glow()
-                    .build()),
-            TextureFactory.of(
-                TextureFactory.of(
-                    Textures.BlockIcons.customOptional(
-                        "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_TOP_ACTIVE")),
-                TextureFactory.builder()
-                    .addIcon(
-                        (Textures.BlockIcons.customOptional(
-                            "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_TOP_ACTIVE_GLOW")))
-                    .glow()
-                    .build()),
-            TextureFactory.of(
-                TextureFactory.of(
-                    Textures.BlockIcons
-                        .customOptional("basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_TOP")),
-                TextureFactory.builder()
-                    .addIcon(
-                        (Textures.BlockIcons.customOptional(
-                            "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_TOP_GLOW")))
-                    .glow()
-                    .build()),
-            TextureFactory.of(
-                TextureFactory.of(
-                    Textures.BlockIcons.customOptional(
-                        "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_BOTTOM_ACTIVE")),
-                TextureFactory.builder()
-                    .addIcon(
-                        (Textures.BlockIcons.customOptional(
-                            "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_BOTTOM_ACTIVE_GLOW")))
-                    .glow()
-                    .build()),
-            TextureFactory.of(
-                TextureFactory.of(
-                    Textures.BlockIcons
-                        .customOptional("basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_BOTTOM")),
-                TextureFactory.builder()
-                    .addIcon(
-                        (Textures.BlockIcons.customOptional(
-                            "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_BOTTOM_GLOW")))
-                    .glow()
-                    .build()));
+            aOverlays);
         this.mTankCapacity = aTankCapacity;
+        this.hasInputFluidSlot = hasInputFluidSlot;
+        this.hasOutputFluidSlot = hasOutputFluidSlot;
         this.mSoundResource = aSound;
         this.mSpecialEffect = aSpecialEffect;
         this.mRecipes = aRecipes;
@@ -163,12 +91,11 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
     }
 
     /**
-     * Registers machine with multi-line descriptions, auto-scaled fluid tank, and sound specified by SoundResource. Has
-     * no recipe.
+     * Registers machine with multi-line descriptions, specific tank capacity, and sound specified by SoundResource.
      */
     public MTEBasicMachineWithRecipe(int aID, String aName, String aNameRegional, int aTier, String[] aDescription,
-        RecipeMap<?> aRecipes, int aInputSlots, int aOutputSlots, boolean usesFluids, SoundResource aSound,
-        SpecialEffects aSpecialEffect, String aOverlays) {
+        RecipeMap<?> aRecipes, int aInputSlots, int aOutputSlots, boolean hasInputFluidSlot, boolean hasOutputFluidSlot,
+        int aTankCapacity, SoundResource aSound, SpecialEffects aSpecialEffect, String aOverlays, Object[] aRecipe) {
         this(
             aID,
             aName,
@@ -178,7 +105,115 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
             aRecipes,
             aInputSlots,
             aOutputSlots,
-            usesFluids ? getCapacityForTier(aTier) : 0,
+            hasInputFluidSlot,
+            hasOutputFluidSlot,
+            aTankCapacity,
+            aSound,
+            aSpecialEffect,
+            new ITexture[] { TextureFactory.of(
+                TextureFactory.of(
+                    Textures.BlockIcons.customOptional(
+                        "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_SIDE_ACTIVE")),
+                TextureFactory.builder()
+                    .addIcon(
+                        (Textures.BlockIcons.customOptional(
+                            "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_SIDE_ACTIVE_GLOW")))
+                    .glow()
+                    .build()),
+                TextureFactory.of(
+                    TextureFactory.of(
+                        Textures.BlockIcons.customOptional(
+                            "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_SIDE")),
+                    TextureFactory.builder()
+                        .addIcon(
+                            (Textures.BlockIcons.customOptional(
+                                "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_SIDE_GLOW")))
+                        .glow()
+                        .build()),
+                TextureFactory.of(
+                    TextureFactory.of(
+                        Textures.BlockIcons.customOptional(
+                            "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_FRONT_ACTIVE")),
+                    TextureFactory.builder()
+                        .addIcon(
+                            (Textures.BlockIcons.customOptional(
+                                "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH)
+                                    + "/OVERLAY_FRONT_ACTIVE_GLOW")))
+                        .glow()
+                        .build()),
+                TextureFactory.of(
+                    TextureFactory.of(
+                        Textures.BlockIcons.customOptional(
+                            "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_FRONT")),
+                    TextureFactory.builder()
+                        .addIcon(
+                            (Textures.BlockIcons.customOptional(
+                                "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_FRONT_GLOW")))
+                        .glow()
+                        .build()),
+                TextureFactory.of(
+                    TextureFactory.of(
+                        Textures.BlockIcons.customOptional(
+                            "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_TOP_ACTIVE")),
+                    TextureFactory.builder()
+                        .addIcon(
+                            (Textures.BlockIcons.customOptional(
+                                "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_TOP_ACTIVE_GLOW")))
+                        .glow()
+                        .build()),
+                TextureFactory.of(
+                    TextureFactory.of(
+                        Textures.BlockIcons
+                            .customOptional("basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_TOP")),
+                    TextureFactory.builder()
+                        .addIcon(
+                            (Textures.BlockIcons.customOptional(
+                                "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_TOP_GLOW")))
+                        .glow()
+                        .build()),
+                TextureFactory.of(
+                    TextureFactory.of(
+                        Textures.BlockIcons.customOptional(
+                            "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_BOTTOM_ACTIVE")),
+                    TextureFactory.builder()
+                        .addIcon(
+                            (Textures.BlockIcons.customOptional(
+                                "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH)
+                                    + "/OVERLAY_BOTTOM_ACTIVE_GLOW")))
+                        .glow()
+                        .build()),
+                TextureFactory.of(
+                    TextureFactory.of(
+                        Textures.BlockIcons.customOptional(
+                            "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_BOTTOM")),
+                    TextureFactory.builder()
+                        .addIcon(
+                            (Textures.BlockIcons.customOptional(
+                                "basicmachines/" + aOverlays.toLowerCase(Locale.ENGLISH) + "/OVERLAY_BOTTOM_GLOW")))
+                        .glow()
+                        .build()) },
+            aRecipe);
+    }
+
+    /**
+     * Registers machine with multi-line descriptions, auto-scaled fluid tank, and sound specified by SoundResource. Has
+     * no recipe.
+     */
+    public MTEBasicMachineWithRecipe(int aID, String aName, String aNameRegional, int aTier, String[] aDescription,
+        RecipeMap<?> aRecipes, int aInputSlots, int aOutputSlots, boolean hasInputFluidSlot, boolean hasOutputFluidSlot,
+        SoundResource aSound, SpecialEffects aSpecialEffect, String aOverlays) {
+        this(
+            aID,
+            aName,
+            aNameRegional,
+            aTier,
+            aDescription,
+            aRecipes,
+            aInputSlots,
+            aOutputSlots,
+            hasInputFluidSlot,
+            hasOutputFluidSlot,
+            hasInputFluidSlot || hasOutputFluidSlot ? getCapacityForTier(aTier) : 0,
             aSound,
             aSpecialEffect,
             aOverlays,
@@ -190,8 +225,8 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
      * no recipe.
      */
     public MTEBasicMachineWithRecipe(int aID, String aName, String aNameRegional, int aTier, String[] aDescription,
-        RecipeMap<?> aRecipes, int aInputSlots, int aOutputSlots, int aTankCapacity, SoundResource aSound,
-        SpecialEffects aSpecialEffect, String aOverlays) {
+        RecipeMap<?> aRecipes, int aInputSlots, int aOutputSlots, boolean hasInputFluidSlot, boolean hasOutputFluidSlot,
+        int aTankCapacity, SoundResource aSound, SpecialEffects aSpecialEffect, String aOverlays) {
         this(
             aID,
             aName,
@@ -201,6 +236,8 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
             aRecipes,
             aInputSlots,
             aOutputSlots,
+            hasInputFluidSlot,
+            hasOutputFluidSlot,
             aTankCapacity,
             aSound,
             aSpecialEffect,
@@ -212,10 +249,12 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
      * For {@link #newMetaEntity}.
      */
     public MTEBasicMachineWithRecipe(String aName, int aTier, String[] aDescription, RecipeMap<?> aRecipes,
-        int aInputSlots, int aOutputSlots, int aTankCapacity, int aAmperage, ITexture[][][] aTextures,
-        SoundResource aSound, SpecialEffects aSpecialEffect) {
+        int aInputSlots, int aOutputSlots, boolean hasInputFluidSlot, boolean hasOutputFluidSlot, int aTankCapacity,
+        int aAmperage, ITexture[][][] aTextures, SoundResource aSound, SpecialEffects aSpecialEffect) {
         super(aName, aTier, aAmperage, aDescription, aTextures, aInputSlots, aOutputSlots);
         this.mTankCapacity = aTankCapacity;
+        this.hasInputFluidSlot = hasInputFluidSlot;
+        this.hasOutputFluidSlot = hasOutputFluidSlot;
         this.mSpecialEffect = aSpecialEffect;
         this.mRecipes = aRecipes;
         this.mSoundResource = aSound;
@@ -230,6 +269,8 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
             this.mRecipes,
             this.mInputSlotCount,
             this.mOutputItems == null ? 0 : this.mOutputItems.length,
+            this.hasInputFluidSlot,
+            this.hasOutputFluidSlot,
             this.mTankCapacity,
             this.mAmperage,
             this.mTextures,
@@ -434,12 +475,26 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
 
     @Override
     public ModularPanel buildUI(PosGuiData data, PanelSyncManager syncManager, UISettings uiSettings) {
-        return new MTEBasicMachineWithRecipeBaseGui(this, this.getUIProperties()).build(data, syncManager, uiSettings);
+        return new MTEBasicMachineBaseGui(this, this.getUIProperties()).build(data, syncManager, uiSettings);
     }
 
     @Override
     public int getCapacity() {
         return this.mTankCapacity;
+    }
+
+    @Override
+    public FluidTankInfo[] getTankInfo(ForgeDirection side) {
+        if (hasInputFluidSlot && hasOutputFluidSlot) {
+            return new FluidTankInfo[] { new FluidTankInfo(getFillableStack(), getCapacity()),
+                new FluidTankInfo(getDrainableStack(), getCapacity()) };
+        } else if (hasInputFluidSlot) {
+            return new FluidTankInfo[] { new FluidTankInfo(getFillableStack(), getCapacity()) };
+        } else if (hasOutputFluidSlot) {
+            return new FluidTankInfo[] { new FluidTankInfo(getDrainableStack(), getCapacity()) };
+        }
+
+        return super.getTankInfo(side);
     }
 
     @SideOnly(Side.CLIENT)
@@ -451,6 +506,8 @@ public class MTEBasicMachineWithRecipe extends MTEBasicMachine {
     @Override
     protected BasicUIProperties getUIProperties() {
         return super.getUIProperties().toBuilder()
+            .maxFluidInputs(hasInputFluidSlot ? 1 : 0)
+            .maxFluidOutputs(hasOutputFluidSlot ? 1 : 0)
             .progressBarTexture(progressBarTexture)
             .build();
     }
