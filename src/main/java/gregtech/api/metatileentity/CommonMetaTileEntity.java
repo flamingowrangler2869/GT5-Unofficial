@@ -414,10 +414,6 @@ public abstract class CommonMetaTileEntity implements IMetaTileEntity {
         return 64;
     }
 
-    public int getSlotLimit(int slot) {
-        return getInventoryStackLimit();
-    }
-
     @Override
     public boolean isItemValidForSlot(int index, ItemStack itemStack) {
         return getBaseMetaTileEntity().isValidSlot(index);
@@ -642,6 +638,15 @@ public abstract class CommonMetaTileEntity implements IMetaTileEntity {
      */
     protected boolean forceUseMui2() {
         return false;
+    }
+
+    /**
+     * A public method to verify if this MTE has a Mui2 GUI. Returning false indicates that do not try to open a Mui2
+     * GUI
+     * of this.
+     */
+    public boolean hasMui2Gui() {
+        return useMui2() || forceUseMui2();
     }
 
     @Override

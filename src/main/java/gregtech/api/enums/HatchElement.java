@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import net.minecraft.util.StatCollector;
+
 import com.google.common.collect.ImmutableList;
 
 import gregtech.api.interfaces.IHatchElement;
@@ -18,8 +20,9 @@ import gregtech.api.metatileentity.implementations.MTEHatchOutput;
 import gregtech.api.metatileentity.implementations.MTEHatchOutputBus;
 import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import gregtech.api.util.ExoticEnergyInputHelper;
-import gregtech.api.util.GTUtility;
 import gregtech.api.util.IGTHatchAdder;
+import gregtech.common.tileentities.machines.MTEHatchCraftingInputME;
+import gregtech.common.tileentities.machines.MTEHatchCraftingInputSlave;
 import gregtech.common.tileentities.machines.multi.purification.MTEHatchLensHousing;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusInput;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusOutput;
@@ -49,7 +52,15 @@ public enum HatchElement implements IHatchElement<MTEMultiBlockBase> {
 
         @Override
         public long count(MTEMultiBlockBase t) {
-            return t.mInputHatches.size();
+            return t.mInputHatches.size() + t.mDualInputHatches.stream()
+                .filter(hatch -> hatch.supportsFluids() || hatch instanceof MTEHatchCraftingInputSlave)
+                .count();
+        }
+
+        @Override
+        public List<? extends Class<? extends IMetaTileEntity>> mteClasses() {
+            return ImmutableList
+                .of(MTEHatchInput.class, MTEHatchCraftingInputME.class, MTEHatchCraftingInputSlave.class);
         }
     },
     InputBus("GT5U.MBTT.InputBus", MTEMultiBlockBase::addInputBusToMachineList, MTEHatchInputBus.class) {
@@ -191,7 +202,7 @@ public enum HatchElement implements IHatchElement<MTEMultiBlockBase> {
 
     @Override
     public String getDisplayName() {
-        return GTUtility.translate(name);
+        return StatCollector.translateToLocal(name);
     }
 
     @Override

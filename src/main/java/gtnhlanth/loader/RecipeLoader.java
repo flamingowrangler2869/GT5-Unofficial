@@ -8,6 +8,7 @@ import static gregtech.api.recipe.RecipeMaps.autoclaveRecipes;
 import static gregtech.api.recipe.RecipeMaps.blastFurnaceRecipes;
 import static gregtech.api.recipe.RecipeMaps.centrifugeRecipes;
 import static gregtech.api.recipe.RecipeMaps.chemicalBathRecipes;
+import static gregtech.api.recipe.RecipeMaps.chemicalDehydratorRecipes;
 import static gregtech.api.recipe.RecipeMaps.chemicalReactorRecipes;
 import static gregtech.api.recipe.RecipeMaps.crackingRecipes;
 import static gregtech.api.recipe.RecipeMaps.distillationTowerRecipes;
@@ -22,8 +23,10 @@ import static gregtech.api.recipe.RecipeMaps.mixerRecipes;
 import static gregtech.api.recipe.RecipeMaps.multiblockChemicalReactorRecipes;
 import static gregtech.api.recipe.RecipeMaps.oreWasherRecipes;
 import static gregtech.api.recipe.RecipeMaps.sifterRecipes;
+import static gregtech.api.recipe.RecipeMaps.simpleWasherRecipes;
 import static gregtech.api.recipe.RecipeMaps.thermalCentrifugeRecipes;
 import static gregtech.api.recipe.RecipeMaps.vacuumFreezerRecipes;
+import static gregtech.api.recipe.RecipeMaps.vacuumFurnaceRecipes;
 import static gregtech.api.util.GTRecipeBuilder.INGOTS;
 import static gregtech.api.util.GTRecipeBuilder.MINUTES;
 import static gregtech.api.util.GTRecipeBuilder.SECONDS;
@@ -37,9 +40,6 @@ import static gregtech.api.util.GTRecipeConstants.SCANNING;
 import static gregtech.api.util.GTRecipeConstants.UniversalChemical;
 import static gregtech.api.util.GTRecipeConstants.WaferEngravingRecipes;
 import static gregtech.common.items.MetaGeneratedItem01.registerCauldronCleaningFor;
-import static gtPlusPlus.api.recipe.GTPPRecipeMaps.chemicalDehydratorRecipes;
-import static gtPlusPlus.api.recipe.GTPPRecipeMaps.simpleWasherRecipes;
-import static gtPlusPlus.api.recipe.GTPPRecipeMaps.vacuumFurnaceRecipes;
 import static gtnhlanth.api.recipe.LanthanidesRecipeMaps.digesterRecipes;
 import static gtnhlanth.api.recipe.LanthanidesRecipeMaps.dissolutionTankRecipes;
 import static gtnhlanth.common.register.WerkstoffMaterialPool.CeriumChlorideConcentrate;
@@ -3439,6 +3439,22 @@ public class RecipeLoader {
             .metadata(COIL_HEAT, 9100)
             .eut(TierEU.RECIPE_UHV)
             .duration(5 * SECONDS)
+            .addTo(vacuumFurnaceRecipes);
+
+        // Amalgatite Gems
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTUtility.copyAmount(0, GTOreDictUnificator.get(OrePrefixes.nanite, Materials.MagMatter, 1)),
+                GTOreDictUnificator.get(OrePrefixes.gemFlawed, Materials.Amalgatite, 3),
+                GTOreDictUnificator.get(OrePrefixes.gem, Materials.Amber, 64),
+                GTOreDictUnificator.get(OrePrefixes.gem, Materials.Topaz, 64),
+                CeriumDopedLutetiumAluminiumGarnet.get(OrePrefixes.gem, 64),
+                GTOreDictUnificator.get(OrePrefixes.gem, Materials.Jade, 64))
+            .fluidInputs(Materials.Protomatter.getFluid(250_000))
+            .itemOutputs(GTOreDictUnificator.get(OrePrefixes.gem, Materials.Amalgatite, 1))
+            .metadata(COIL_HEAT, 13500)
+            .duration(5 * SECONDS)
+            .eut(TierEU.RECIPE_MAX)
             .addTo(vacuumFurnaceRecipes);
 
         // 16 Adv Crystal SoC

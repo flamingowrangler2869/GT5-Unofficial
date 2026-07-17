@@ -14,6 +14,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.gtnewhorizon.structurelib.alignment.constructable.ISurvivalConstructable;
@@ -56,7 +57,7 @@ public abstract class MTEBECMultiblockBase<TSelf extends MTEBECMultiblockBase<TS
     protected final StructureWrapperInstanceInfo<TSelf> structureInstanceInfo;
 
     public MTEBECMultiblockBase(int id, String name) {
-        super(id, name, GTUtility.translate("gt.blockmachines." + name + ".name"));
+        super(id, name, StatCollector.translateToLocal("gt.blockmachines." + name + ".name"));
 
         structure = new StructureWrapper<>(this);
         structureInstanceInfo = null;
@@ -225,11 +226,15 @@ public abstract class MTEBECMultiblockBase<TSelf extends MTEBECMultiblockBase<TS
         return ConnectionType.NONE;
     }
 
+    protected boolean connectsToNetwork() {
+        return true;
+    }
+
     @Override
     public void onFirstTick_EM(IGregTechTileEntity aBaseMetaTileEntity) {
         super.onFirstTick_EM(aBaseMetaTileEntity);
 
-        if (GTUtility.isServer()) {
+        if (GTUtility.isServer() && connectsToNetwork()) {
             BECFactoryGrid.INSTANCE.updateElement(this);
         }
     }
@@ -238,7 +243,7 @@ public abstract class MTEBECMultiblockBase<TSelf extends MTEBECMultiblockBase<TS
     public void onRemoval() {
         super.onRemoval();
 
-        if (GTUtility.isServer()) {
+        if (GTUtility.isServer() && connectsToNetwork()) {
             BECFactoryGrid.INSTANCE.removeElement(this);
         }
     }
@@ -268,7 +273,7 @@ public abstract class MTEBECMultiblockBase<TSelf extends MTEBECMultiblockBase<TS
         @Override
         public String getDisplayName() {
             return switch (this) {
-                case Hatch -> GTUtility.translate("gt.blockmachines.hatch.bec.name");
+                case Hatch -> StatCollector.translateToLocal("gt.blockmachines.hatch.bec.name");
             };
         }
 

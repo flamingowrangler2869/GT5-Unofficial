@@ -3,13 +3,13 @@ package gregtech.api.enums;
 import java.util.function.Supplier;
 
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
 import gregtech.api.fluid.GTFluidFactory;
 import gregtech.api.interfaces.IOreMaterial;
 import gregtech.api.interfaces.fluid.IGTFluidBuilder;
-import gregtech.api.util.GTUtility;
 import gregtech.api.util.Lazy;
 import gregtech.common.fluid.GTFluid;
 import gregtech.common.items.GTItemCell;
@@ -28,17 +28,17 @@ import tectech.recipe.TecTechRecipeMaps;
 public enum CondensateType {
 
     // spotless:off
-    NEUTRONIUM(
+    Neutronium(
         "neutronium",
         () -> Materials.Neutronium,
         144,
         () -> Materials.Neutronium.getMolten(144), 20, TierEU.RECIPE_UHV),
-    COSMICNEUTRONIUM(
+    CosmicNeutronium(
         "cosmicneutronium",
         () -> Materials.CosmicNeutronium,
         144,
         () -> Materials.CosmicNeutronium.getMolten(144), 20, TierEU.RECIPE_UHV),
-    BEDROCKIUM(
+    Bedrockium(
         "bedrockium",
         () -> Materials.Bedrockium,
         144,
@@ -71,13 +71,23 @@ public enum CondensateType {
     DimensionallyShiftedSuperfluid(
         "dimshiftedsuperfluid",
         () -> Materials.DimensionallyShiftedSuperfluid,
-        144,
-        () -> Materials.DimensionallyShiftedSuperfluid.getFluid(144), 40, TierEU.RECIPE_UIV),
+        1000,
+        () -> Materials.DimensionallyShiftedSuperfluid.getFluid(1000), 120, TierEU.RECIPE_UIV),
+    PhononMedium(
+        "phononmedium",
+        () -> Materials.PhononMedium,
+        1000,
+        () -> Materials.PhononMedium.getFluid(1000), 120, TierEU.RECIPE_UIV),
+    QuarkGluonPlasma(
+        "quarkgluonplasma",
+        () -> Materials.QuarkGluonPlasma,
+        1000,
+        () -> Materials.QuarkGluonPlasma.getFluid(1000), 120, TierEU.RECIPE_UIV),
     SpaceTime(
         "spacetime",
         () -> Materials.SpaceTime,
         144,
-        () -> Materials.SpaceTime.getMolten(144), 40, TierEU.RECIPE_UIV),
+        () -> Materials.SpaceTime.getMolten(144), 60, TierEU.RECIPE_UIV),
     Time(
         "time",
         () -> Materials.Time,
@@ -91,8 +101,8 @@ public enum CondensateType {
     BoundlessCosmicSolder(
         "cosmicsolder",
         () -> Materials.BoundlessCosmicSolder,
-        144,
-        () -> Materials.BoundlessCosmicSolder.getFluid(144), 60, TierEU.RECIPE_UMV),
+        1000,
+        () -> Materials.BoundlessCosmicSolder.getFluid(1000), 160, TierEU.RECIPE_UMV),
     MHDCSM(
         "mhdcsm",
         () -> Materials.MHDCSM,
@@ -140,11 +150,24 @@ public enum CondensateType {
     }
 
     public FluidStack getEntangled(int amount) {
+        // Half the unit allows for some niche balance cases while being easy to handle on the player side,
+        // but any other non-multiple is needlessly complicated and bad player experience.
+        if (amount % (unit / 2) != 0) throw new IllegalArgumentException(
+            "amount " + amount
+                + " of condensate "
+                + id
+                + " is not cleanly divisible by its unit amount "
+                + unit
+                + " or half that");
         return new FluidStack(entangledFluid, amount);
     }
 
+    public int getUnit() {
+        return unit;
+    }
+
     public String getAbbrevName() {
-        return GTUtility.translate("abbrev.entangled_" + id);
+        return StatCollector.translateToLocal("abbrev.entangled_" + id);
     }
 
     public static void registerFluids() {
