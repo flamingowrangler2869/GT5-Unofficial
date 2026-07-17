@@ -172,6 +172,10 @@ public class GlassTier {
             if (Botania.isModLoaded()) {
                 addCustomGlass(Botania.ID, "manaGlass", 0, 4, 8);
             }
+            if (AppliedEnergistics2.isModLoaded()) {
+                addCustomGlass(AppliedEnergistics2.ID, "tile.BlockQuartzGlass", 0, 4, 9);
+                addCustomGlass(AppliedEnergistics2.ID, "tile.BlockQuartzLamp", 0, 4, 10);
+            }
 
             // --- IV ---
             addCustomGlass(ItemRegistry.bw_realglas, 2, 5, 0);
