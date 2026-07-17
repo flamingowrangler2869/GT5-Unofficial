@@ -2,6 +2,7 @@ package gregtech.api.util;
 
 import static cpw.mods.fml.common.registry.GameRegistry.findBlock;
 import static gregtech.api.enums.GTValues.VN;
+import static gregtech.api.enums.Mods.AppliedEnergistics2;
 import static gregtech.api.enums.Mods.BloodArsenal;
 import static gregtech.api.enums.Mods.Botania;
 import static gregtech.api.enums.Mods.EnderIO;
